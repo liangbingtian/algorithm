@@ -1,4 +1,4 @@
-package com.liang.argorithm.others;
+package com.liang.argorithm.aboutarray;
 
 import org.springframework.stereotype.Component;
 
@@ -79,7 +79,7 @@ public class RemoveArrayElements {
       if (ch != '#') {
         stringBuffer.append(ch);
       } else {
-        if (stringBuffer.length()!=0) {
+        if (stringBuffer.length() != 0) {
           stringBuffer.deleteCharAt(stringBuffer.length() - 1);
         }
       }
@@ -96,34 +96,34 @@ public class RemoveArrayElements {
     while (i >= 0 && j >= 0) {
       int skip1 = 0;
       int skip2 = 0;
-      while (i>=0) {
+      while (i >= 0) {
         if (str1.charAt(i) == '#') {
           skip1++;
           i--;
-        }else if (skip1>0) {
-            i--;
-            skip1--;
-        }else {
+        } else if (skip1 > 0) {
+          i--;
+          skip1--;
+        } else {
           break;
         }
       }
-      while (j>=0) {
+      while (j >= 0) {
         if (str2.charAt(j) == '#') {
           skip2++;
           j--;
-        }else if (skip2>0) {
-            j--;
-            skip2--;
-        }else {
+        } else if (skip2 > 0) {
+          j--;
+          skip2--;
+        } else {
           break;
         }
       }
-      if (i>=0&&j>=0) {
-        if (str1.charAt(i)!=str2.charAt(j)) {
+      if (i >= 0 && j >= 0) {
+        if (str1.charAt(i) != str2.charAt(j)) {
           return false;
         }
-      }else {
-        if (i>=0||j>=0) {
+      } else {
+        if (i >= 0 || j >= 0) {
           return false;
         }
       }
@@ -132,5 +132,60 @@ public class RemoveArrayElements {
     }
     return true;
   }
-}
 
+  public int[] sortedSquares(int[] nums) {
+    int rightIndex = nums.length;
+    for (int i = 1; i < nums.length; i++) {
+      if (nums[i] * nums[i - 1] <= 0) {
+        rightIndex = i;
+        break;
+      }
+    }
+    int leftIndex = rightIndex - 1;
+    int[] resultArray = new int[nums.length];
+    int resultArrayIndex = 0;
+    while (leftIndex >= 0 && rightIndex <= nums.length - 1) {
+      int leftResult = nums[leftIndex] * nums[leftIndex];
+      int rightResult = nums[rightIndex] * nums[rightIndex];
+      if (leftResult <= rightResult) {
+        resultArray[resultArrayIndex++] = leftResult;
+        leftIndex--;
+      } else {
+        resultArray[resultArrayIndex++] = rightResult;
+        rightIndex++;
+      }
+    }
+    while (leftIndex >= 0) {
+      if (nums[leftIndex]>=0) {
+        for (int i=0;i<=leftIndex;++i) {
+          resultArray[resultArrayIndex++] = nums[i]*nums[i];
+        }
+        break;
+      }
+      resultArray[resultArrayIndex++] = nums[leftIndex] * nums[leftIndex];
+      leftIndex--;
+    }
+    while (rightIndex <= nums.length - 1) {
+      resultArray[resultArrayIndex++] = nums[rightIndex] * nums[rightIndex];
+      rightIndex++;
+    }
+    return resultArray;
+  }
+
+  /**
+   * 因为是增序的，所以前后两端的双指针会更简单
+   */
+  public int[] sortedSquares1(int[] nums) {
+    int[] resultArray = new int[nums.length];
+    for (int i=0,j=nums.length-1,resultIndex = nums.length-1;i<=j;) {
+      if (nums[i]*nums[i]<=nums[j]*nums[j]) {
+        resultArray[resultIndex--] = nums[j]*nums[j];
+        j--;
+      }else {
+        resultArray[resultIndex--] = nums[i]*nums[i];
+        i++;
+      }
+    }
+    return resultArray;
+  }
+}

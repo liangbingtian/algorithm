@@ -2,8 +2,8 @@ package com.liang.argorithm;
 
 import com.alibaba.fastjson.JSON;
 import com.liang.argorithm.others.ClimbStairs;
-import com.liang.argorithm.others.RemoveArrayElements;
-import com.liang.argorithm.search.BinarySearch;
+import com.liang.argorithm.aboutarray.RemoveArrayElements;
+import com.liang.argorithm.aboutarray.BinarySearch;
 import com.liang.argorithm.sort.SortPractice;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -67,8 +67,7 @@ public class AlgorithmTest {
   }
 
   /**
-   * 测试用例，最大整数2147483647，原因是一开始加一溢出
-   * 测试用例，如果将long改成int的话，这个值无法测试通过:808201，原因是乘法溢出
+   * 测试用例，最大整数2147483647，原因是一开始加一溢出 测试用例，如果将long改成int的话，这个值无法测试通过:808201，原因是乘法溢出
    * 改成除法后，又把long改回了int。5测试也没通过,完全平方根不能用简单的/这种除法了，因为会产生向下取整的问题。
    */
   @Test
@@ -81,21 +80,22 @@ public class AlgorithmTest {
   public void testSearchRange() {
     int[] a = new int[]{5, 7, 7, 8, 8, 10};
     long startTime = System.currentTimeMillis();
-    System.out.println("返回的结果为:"+ Arrays.toString(binarySearch.searchFirstAndLastPosition(a, 8)));
+    System.out.println("返回的结果为:" + Arrays.toString(binarySearch.searchFirstAndLastPosition(a, 8)));
     long endTime = System.currentTimeMillis();
-    System.out.println("消耗的时间为:" + (endTime-startTime));
+    System.out.println("消耗的时间为:" + (endTime - startTime));
   }
 
   /**
-   * 第一个测试用例是"ab##"和"c#d#"的问题已经改成。
-   * 第二个测试用例是"bbbextm"和"bbb#extm"最外层的while循环没有处理好
+   * 第一个测试用例是"ab##"和"c#d#"的问题已经改成。 第二个测试用例是"bbbextm"和"bbb#extm"最外层的while循环没有处理好 sortedSquares测试用例
+   * 第一个是{-4,-1,0,3,10},第二个是[1,2];
    */
   @Test
   public void testRemove() {
     String str1 = "bbbextm";
     String str2 = "bbb#extm";
-    boolean result = removeElements.compareBackSpaceString2(str1, str2);
-    System.out.println(result);
+//    boolean result = removeElements.compareBackSpaceString2(str1, str2);
+    int[] nums = new int[]{1, 2};
+    System.out.println(Arrays.toString(removeElements.sortedSquares(nums)));
   }
 
   private List<Integer> readSourceFileAndUseIt(String fileName) {
@@ -109,5 +109,6 @@ public class AlgorithmTest {
     }
     return new ArrayList<>();
   }
+
 
 }
