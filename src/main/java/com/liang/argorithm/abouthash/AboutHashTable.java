@@ -127,7 +127,7 @@ public class AboutHashTable {
       if (nums[i] > 0) {
         return result;
       }
-      if (i > 0 && nums[i] > nums[i - 1]) {
+      if (i > 0 && nums[i] == nums[i - 1]) {
         continue;
       }
       int left = i + 1;
