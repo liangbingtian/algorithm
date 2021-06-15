@@ -1,8 +1,13 @@
 package com.liang.argorithm.aboutarray;
 
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -97,21 +102,21 @@ public class SlidingWindow {
     Map<Integer, Integer> basket = new HashMap<>();
     int i = 0;
     int resultLength = Integer.MIN_VALUE;
-    for(int j=0;j<tree.length;++j) {
-      basket.put(tree[j], basket.getOrDefault(tree[j], 0)+1);
-      while(basket.size() >= 3) {
-        basket.put(tree[i], basket.getOrDefault(tree[i], 0)-1);
-        if(basket.getOrDefault(tree[i], 0) == 0) {
+    for (int j = 0; j < tree.length; ++j) {
+      basket.put(tree[j], basket.getOrDefault(tree[j], 0) + 1);
+      while (basket.size() >= 3) {
+        basket.put(tree[i], basket.getOrDefault(tree[i], 0) - 1);
+        if (basket.getOrDefault(tree[i], 0) == 0) {
           basket.remove(tree[i]);
         }
         i++;
       }
-      int tmpLength = j-i;
-      if(tmpLength>resultLength) {
+      int tmpLength = j - i;
+      if (tmpLength > resultLength) {
         resultLength = tmpLength;
       }
     }
-    resultLength = (resultLength == Integer.MIN_VALUE)?-1:resultLength;
+    resultLength = (resultLength == Integer.MIN_VALUE) ? -1 : resultLength;
     return resultLength;
   }
 
@@ -124,7 +129,7 @@ public class SlidingWindow {
     Map<Character, Integer> window = new HashMap<>();
     for (int i = 0; i < t.length(); ++i) {
       char c = t.charAt(i);
-      need.put(c, need.getOrDefault(c, 0)+1);
+      need.put(c, need.getOrDefault(c, 0) + 1);
     }
     int resultLength = Integer.MAX_VALUE;
     String resultStr = "";
@@ -134,26 +139,76 @@ public class SlidingWindow {
     for (int j = 0; j < s.length(); ++j) {
       char c = s.charAt(j);
       if (need.containsKey(c)) {
-        window.put(c, window.getOrDefault(c, 0)+1);
+        window.put(c, window.getOrDefault(c, 0) + 1);
         if (window.get(c).equals(need.get(c))) {
           valid++;
         }
       }
       while (valid == need.size()) {
-        int tmpLength = j-i+1;
-        if (tmpLength<resultLength) {
+        int tmpLength = j - i + 1;
+        if (tmpLength < resultLength) {
           resultLength = tmpLength;
-          resultStr = s.substring(i, j+1);
+          resultStr = s.substring(i, j + 1);
         }
         char d = s.charAt(i++);
         if (window.containsKey(d)) {
           if (window.get(d).equals(need.get(d))) {
             valid--;
           }
-          window.put(d, window.getOrDefault(d, 0)-1);
+          window.put(d, window.getOrDefault(d, 0) - 1);
         }
       }
     }
     return resultStr;
+  }
+
+  /**
+   * 给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。
+   * <p>
+   * 返回滑动窗口中的最大值。
+   */
+  public int[] maxSlidingWindow(int[] nums, int k) {
+    if (nums.length == 1) {
+      return nums;
+    }
+    MyQueue myQueue = new MyQueue();
+    int[] result = new int[nums.length - k + 1];
+    for (int i = 0; i < k; ++i) {
+      myQueue.push(i);
+    }
+    int num = 0;
+    result[num++] = myQueue.front();
+    for (int i = k; i < nums.length; ++i) {
+      myQueue.pop(nums[i-k]);
+      myQueue.push(nums[i]);
+      result[num++] = myQueue.front();
+    }
+    return result;
+  }
+
+  private static class MyQueue {
+
+    private final Deque<Integer> slidingWindows;
+
+    public MyQueue() {
+      slidingWindows = new LinkedList<>();
+    }
+
+    void pop(int value) {
+      if (!slidingWindows.isEmpty() && slidingWindows.peek() == value) {
+        slidingWindows.pop();
+      }
+    }
+
+    void push(int value) {
+      while (!slidingWindows.isEmpty() && slidingWindows.peekLast() < value) {
+        slidingWindows.pollLast();
+      }
+      slidingWindows.addLast(value);
+    }
+
+    Integer front() {
+      return slidingWindows.peek();
+    }
   }
 }
