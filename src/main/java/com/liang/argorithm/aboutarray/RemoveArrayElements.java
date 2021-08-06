@@ -43,6 +43,22 @@ public class RemoveArrayElements {
   }
 
   /**
+   * 移动零 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。 和删除元素的这个题目类似，只不过删除的元素变成了零
+   */
+  public void moveZeros(int[] nums) {
+    int slowIndex = 0;
+    for (int fastIndex = 0; fastIndex < nums.length; fastIndex++) {
+        if (nums[fastIndex]!=0) {
+          nums[slowIndex] = nums[fastIndex];
+          if (slowIndex!=fastIndex) {
+            nums[fastIndex]=0;
+          }
+          slowIndex++;
+        }
+    }
+  }
+
+  /**
    * 删除有序数组中的重复元素，同样使用快慢指针法，由于是有序数组， 若i<j,且nums[i] == nums[j],则如果存在i<k<j，则必有nums[i] == nums[k] ==
    * nums[j]
    */
@@ -156,9 +172,9 @@ public class RemoveArrayElements {
       }
     }
     while (leftIndex >= 0) {
-      if (nums[leftIndex]>=0) {
-        for (int i=0;i<=leftIndex;++i) {
-          resultArray[resultArrayIndex++] = nums[i]*nums[i];
+      if (nums[leftIndex] >= 0) {
+        for (int i = 0; i <= leftIndex; ++i) {
+          resultArray[resultArrayIndex++] = nums[i] * nums[i];
         }
         break;
       }
@@ -177,15 +193,16 @@ public class RemoveArrayElements {
    */
   public int[] sortedSquares1(int[] nums) {
     int[] resultArray = new int[nums.length];
-    for (int i=0,j=nums.length-1,resultIndex = nums.length-1;i<=j;) {
-      if (nums[i]*nums[i]<=nums[j]*nums[j]) {
-        resultArray[resultIndex--] = nums[j]*nums[j];
+    for (int i = 0, j = nums.length - 1, resultIndex = nums.length - 1; i <= j; ) {
+      if (nums[i] * nums[i] <= nums[j] * nums[j]) {
+        resultArray[resultIndex--] = nums[j] * nums[j];
         j--;
-      }else {
-        resultArray[resultIndex--] = nums[i]*nums[i];
+      } else {
+        resultArray[resultIndex--] = nums[i] * nums[i];
         i++;
       }
     }
     return resultArray;
   }
+
 }

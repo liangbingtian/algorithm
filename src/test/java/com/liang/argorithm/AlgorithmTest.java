@@ -110,5 +110,11 @@ public class AlgorithmTest {
     return new ArrayList<>();
   }
 
+  @Test
+  public void testRemoveElement() {
+    int [] a = {-1,0,3,5,9,12};
+    binarySearch.BinarySearch(a, 2);
+  }
+
 
 }

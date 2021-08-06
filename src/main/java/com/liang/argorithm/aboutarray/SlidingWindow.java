@@ -3,11 +3,7 @@ package com.liang.argorithm.aboutarray;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,7 +20,7 @@ public class SlidingWindow {
    */
   public int midSubArrayLen(int target, int[] nums) {
     int length = Integer.MAX_VALUE;
-    for (int i = 0; i < nums.length; ++i) {
+    for (int i = 0; i < nums.length-1; ++i) {
       int result = 0;
       for (int j = i; j < nums.length; ++j) {
         if ((result += nums[j]) >= target) {
@@ -55,6 +51,32 @@ public class SlidingWindow {
     }
     result = (result == Integer.MAX_VALUE) ? 0 : result;
     return result;
+  }
+
+  /**
+   * 11 盛水最多的容器
+   */
+  public int maxArea(int[] nums) {
+    int maxValue = Integer.MIN_VALUE;
+    for (int i=0,j=nums.length-1;i<j;) {
+      int minHeight = nums[i]<nums[j]?nums[i++]:nums[j--];
+      maxValue = Math.max((j-i+1)*minHeight, maxValue);
+    }
+    return maxValue;
+  }
+
+  /**
+   * leecode 11 承最多的水
+   * 1. 暴力解法，从左到右遍历，记录最大值
+   */
+  int maxArea2(int[] a) {
+    int max = 0;
+    for (int i=0;i<a.length-1;++i) {
+      for (int j = i+1;j<a.length;++j) {
+        max = Math.max(max, (j-i)*Math.min(a[i], a[j]));
+      }
+    }
+    return max;
   }
 
   /**
