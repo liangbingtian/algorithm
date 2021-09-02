@@ -1,12 +1,8 @@
 package com.liang.argorithm.aboutbinarytree;
 
 import com.liang.argorithm.aboutbinarytree.BinaryTreeTraversal.TreeNode;
-import java.util.Arrays;
 import java.util.Deque;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -81,12 +77,12 @@ public class BinaryTreeNode {
     if (curr.getLeft() == null && curr.getRight() == null) {
       return false;
     }
-    if (curr.getLeft()!=null) {
-      if (traversal(curr.getLeft(), count-curr.getLeft().getValue())){
+    if (curr.getLeft() != null) {
+      if (traversal(curr.getLeft(), count - curr.getLeft().getValue())) {
         return true;
       }
     }
-    if (curr.getRight()!=null) {
+    if (curr.getRight() != null) {
       return traversal(curr.getRight(), count - curr.getRight().getValue());
     }
     return false;
@@ -96,7 +92,7 @@ public class BinaryTreeNode {
    * 使用迭代法做
    */
   boolean traversal2(TreeNode curr, int count) {
-    if (curr==null) {
+    if (curr == null) {
       return false;
     }
     Deque<RecordPair> deque = new LinkedList<>();
@@ -104,24 +100,113 @@ public class BinaryTreeNode {
     while (!deque.isEmpty()) {
       RecordPair tmp = deque.pollFirst();
       TreeNode node = tmp.getCurr();
-      if (node.getLeft()==null&&node.getRight()==null&&tmp.getRoadValue()==count) {
+      if (node.getLeft() == null && node.getRight() == null && tmp.getRoadValue() == count) {
         return true;
       }
-      if (node.getRight()!=null) {
-        deque.addFirst(new RecordPair(curr.getRight(), curr.getValue()+curr.getRight().getValue()));
+      if (node.getRight() != null) {
+        deque.addFirst(
+            new RecordPair(curr.getRight(), curr.getValue() + curr.getRight().getValue()));
       }
-      if (node.getLeft()!=null) {
-        deque.addFirst(new RecordPair(curr.getLeft(), curr.getValue()+curr.getLeft().getValue()));
+      if (node.getLeft() != null) {
+        deque.addFirst(new RecordPair(curr.getLeft(), curr.getValue() + curr.getLeft().getValue()));
       }
     }
     return false;
+  }
+
+  /**
+   * 求普通二叉树的节点个数，先用递归做
+   */
+  public int normalBinaryTreeNodesNumber(TreeNode root) {
+    if (root == null) {
+      return 0;
+    }
+    int leftNodeNumbers = normalBinaryTreeNodesNumber(root.getLeft());
+    int rightNodeNumbers = normalBinaryTreeNodesNumber(root.getRight());
+    return leftNodeNumbers + rightNodeNumbers + 1;
+  }
+
+  /**
+   * 求普通二叉树的个数，再用迭代层序遍历去做
+   */
+  public int normalBinaryTreeNodesNumber2(TreeNode root) {
+    int result = 0;
+    Deque<TreeNode> deque = new LinkedList<>();
+    deque.offerLast(root);
+    while (!deque.isEmpty()) {
+      int size = deque.size();
+      result += size;
+      for (int i = 1; i <= size; ++i) {
+        TreeNode tmpNode = deque.pollFirst();
+        if (tmpNode.getLeft() != null) {
+          deque.offerLast(tmpNode.getLeft());
+        }
+        if (tmpNode.getRight() != null) {
+          deque.offerLast(tmpNode.getRight());
+        }
+      }
+    }
+    return result;
+  }
+
+  /**
+   * 完全二叉树的情况，可以使用完全二叉树的性质
+   */
+  public int countMaxBinaryTreeNodes(TreeNode root) {
+    if (root == null) {
+      return 0;
+    }
+    TreeNode leftNode = root.getLeft();
+    TreeNode rightNode = root.getRight();
+    int leftHeight = 0, rightHeight = 0;
+    while (leftNode != null) {
+      leftNode = leftNode.getLeft();
+      leftHeight++;
+    }
+    while (rightNode != null) {
+      rightNode = rightNode.getRight();
+      rightHeight++;
+    }
+    //看最左边节点和最右边节点的深度是否相等，相等则用公式计算
+    if (leftHeight == rightHeight) {
+      return (int) Math.pow(2, leftHeight + 1) - 1;
+    }
+    return countMaxBinaryTreeNodes(root.getLeft()) + countMaxBinaryTreeNodes(root.getRight()) + 1;
+  }
+
+  /**
+   * 完全二叉树的节点个数.用另一种递归的方式去做.
+   */
+  public int countMaxBinaryTreeNodes2(TreeNode root) {
+    if (root==null) {
+      return 0;
+    }
+    int result = 1;
+    int leftDepth = getDepthOfTree(root.getLeft());
+    int rightDepth = getDepthOfTree(root.getRight());
+    if (leftDepth==rightDepth) {
+      result = result + (int)(Math.pow(2, leftDepth)-1) + countMaxBinaryTreeNodes2(root.getRight());
+    }else {
+      result = result + (int)(Math.pow(2, rightDepth)-1) + countMaxBinaryTreeNodes2(root.getLeft());
+    }
+    return result;
+  }
+
+  private int getDepthOfTree(TreeNode root) {
+    int result = 0;
+    while (root!=null) {
+      root = root.getLeft();
+      result++;
+    }
+    return result;
   }
 
   @Getter
   @Setter
   @NoArgsConstructor
   @AllArgsConstructor
-  private static class RecordPair{
+  private static class RecordPair {
+
     private TreeNode curr;
     private Integer roadValue;
   }

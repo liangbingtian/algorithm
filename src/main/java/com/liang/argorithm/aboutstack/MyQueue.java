@@ -21,13 +21,13 @@ public class MyQueue {
   }
 
   public void push(int x) {
-    stIn.push(x);
+    stIn.offerFirst(x);
   }
 
   public int pop() {
     if (stOut.isEmpty()) {
       while(!stIn.isEmpty()) {
-        stOut.push(stIn.pollLast());
+        stOut.offerFirst(stIn.pollFirst());
       }
     }
     return stOut.pop();

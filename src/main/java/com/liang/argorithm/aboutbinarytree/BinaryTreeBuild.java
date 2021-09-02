@@ -19,15 +19,15 @@ public class BinaryTreeBuild {
    */
   public TreeNode buildTreeNodeFromMidAndBack(int[] inOrder, int[] postOrder, int inOrderStart,
       int inOrderEnd, int postOrderStart, int postOrderEnd) {
-    //后续遍历数组如果为空的话返回null
-    if (postOrderStart > postOrderEnd) {
+    //中序遍历数组如果为空的话返回null，这种情况是左子树或右子树为NULL的情况，比如中序遍历是[a,b],在中序遍历的右端点处也可以。后续遍历是[b,a]
+    if (inOrderStart > inOrderEnd) {
       return null;
     }
     //后续遍历的最后一个元素为分隔点元素
     int rootNumber = postOrder[postOrderEnd];
     TreeNode treeNode = new TreeNode(rootNumber, null, null);
-    //如果后续遍历数组为一个的话，那么直接返回这个
-    if (postOrderEnd == postOrderStart) {
+    //如果中序遍历数组为一个的话，那么直接返回这个。这种情况是根节点只有一个元素。比如中序遍历是[b,a,c],后续遍历是[b,c,a]
+    if (inOrderStart == inOrderEnd) {
       return treeNode;
     }
     //分隔中序遍历数组
@@ -52,11 +52,11 @@ public class BinaryTreeBuild {
   public TreeNode buildTreeNodeFromMidAndFront(int[] midOrder, int midOrderBegin, int midOrderEnd,
       int[] frontOrder, int frontOrderBegin, int frontOrderEnd) {
     //找到返回的条件
-    if (frontOrderBegin > frontOrderEnd) {
+    if (midOrderBegin > midOrderEnd) {
       return null;
     }
     TreeNode root = new TreeNode(frontOrder[frontOrderBegin], null, null);
-    if (frontOrderBegin == frontOrderEnd) {
+    if (midOrderBegin == midOrderEnd) {
       return root;
     }
     //找到切分点
@@ -127,6 +127,35 @@ public class BinaryTreeBuild {
     }
     return t1;
   }
+
+  /**
+   * 根据数组构建最大二叉树
+   */
+    TreeNode constructMaximumBinaryTree(int[] nums) {
+      if (nums.length==0) {
+        return null;
+      }
+      return constructMaximumBinaryTree(nums, 0, nums.length-1);
+    }
+
+    private TreeNode constructMaximumBinaryTree(int[] nums, int left, int right) {
+      //1.递归的终止条件
+      if (left>right) {
+        return null;
+      }
+      int maxValue = Integer.MIN_VALUE;
+      int maxIndex = left;
+      for (int i=left;i<=right;++i) {
+        if (nums[i]>maxValue) {
+          maxIndex = i;
+          maxValue = nums[i];
+        }
+      }
+      TreeNode root = new TreeNode(maxValue, null, null);
+      root.setLeft(constructMaximumBinaryTree(nums, left, maxIndex-1));
+      root.setRight(constructMaximumBinaryTree(nums, maxIndex+1, right));
+      return root;
+    }
 
 
 }
