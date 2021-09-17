@@ -1,4 +1,5 @@
 package com.liang.argorithm.aboutbinarytree;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -176,6 +177,37 @@ public class BinaryTreeTraversal {
         }
       }
     }
+  }
+
+
+
+  //-------------二叉树遍历使用标记法的迭代统一写法
+  public List<Integer> preorderTraversal2(TreeNode root) {
+    List<Integer> result = new ArrayList<>();
+    if (root==null) {
+      return result;
+    }
+    Deque<TreeNode> deque = new LinkedList<>();
+    deque.offerFirst(root);
+    while (!deque.isEmpty()) {
+      TreeNode curr = deque.peekFirst();
+      if (curr!=null) {
+        curr = deque.pollFirst();
+        if (curr.getRight()!=null) {
+          deque.offerFirst(curr.getRight());
+        }
+        if (curr.getLeft()!=null) {
+          deque.offerFirst(curr.getLeft());
+        }
+        deque.offerFirst(curr);
+        deque.offerFirst(null);
+      }else {
+        deque.pollFirst();
+        curr = deque.pollFirst();
+        result.add(curr.getValue());
+      }
+    }
+    return result;
   }
 
   @Getter

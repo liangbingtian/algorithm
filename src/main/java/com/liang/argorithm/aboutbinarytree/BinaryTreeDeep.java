@@ -15,7 +15,9 @@ public class BinaryTreeDeep {
 
   private int result = 1;
 
+  private int wplResult = 0;
   /**
+   *
    * 二叉树的最大深度，递归方式
    */
   int binaryTreeMaxDeep(TreeNode treeNode) {
@@ -121,21 +123,59 @@ public class BinaryTreeDeep {
 
   private void getMaxDeep(TreeNode node, int deep) {
     result = Math.max(result, deep);
-    if (node.getLeft() == null && node.getRight() == null) {
-      return;
-    }
     if (node.getLeft() != null) {
-      deep++;
-      getMaxDeep(node.getLeft(), deep);
-      deep--;
+      getMaxDeep(node.getLeft(), deep + 1);
     }
     if (node.getRight() != null) {
-      deep++;
-      getMaxDeep(node.getRight(), deep);
-      deep--;
+      getMaxDeep(node.getRight(), deep + 1);
     }
-    result += deep;
   }
+
+  /**
+   * 二叉树的带权路径的和，二叉树所有的叶子节点乘以叶子节点的深度，先序遍历递归法
+   */
+  public void getWpl(TreeNode root, int depth) {
+    //先序遍历计算查找所有叶子节点的深度，因为先序遍历可以一层一层的记录。后续遍历回溯只能统计总和
+    if (root==null) {
+      return;
+    }
+    if (root.getLeft()==null&&root.getRight()==null) {
+      wplResult+=depth*root.getValue();
+    }
+    getWpl(root.getLeft(), depth+1);
+    getWpl(root.getRight(), depth+1);
+  }
+
+  /**
+   * 求二叉树带权路径和，层序遍历法
+   */
+  public int getWpl2(TreeNode root) {
+    int result = 0;
+    int depth = 0;
+    if (root==null) {
+      return result;
+    }
+    Deque<TreeNode> deque = new LinkedList<>();
+    deque.offerLast(root);
+    while(!deque.isEmpty()) {
+      int size = deque.size();
+      depth++;
+      for (int i=1;i<=size;++i) {
+        TreeNode curr = deque.pollFirst();
+        if (curr.getLeft()!=null&&curr.getRight()!=null) {
+          result+=depth*curr.getValue();
+        }
+        if (curr.getLeft()!=null) {
+          deque.offerLast(curr.getLeft());
+        }
+        if (curr.getRight()!=null) {
+          deque.offerLast(curr.getRight());
+        }
+      }
+    }
+    return result;
+  }
+
 
   /**
    * 使用回溯法求解二叉树的所有路径
@@ -180,10 +220,10 @@ public class BinaryTreeDeep {
       return;
     }
     sb.append("->");
-    if (treeNode.getLeft()!=null) {
+    if (treeNode.getLeft() != null) {
       allPathInBinaryTree(treeNode.getLeft(), sb.toString(), result);
     }
-    if (treeNode.getRight()!=null) {
+    if (treeNode.getRight() != null) {
       allPathInBinaryTree(treeNode.getRight(), sb.toString(), result);
     }
   }

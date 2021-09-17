@@ -201,6 +201,51 @@ public class BinaryTreeNode {
     return result;
   }
 
+  /**
+   * 判断二叉树是否是对称,采用后续遍历的做法
+   */
+  private boolean compare(TreeNode leftNode, TreeNode rightNode) {
+    if (leftNode==null&&rightNode!=null) {
+      return false;
+    }else if (leftNode!=null&&rightNode==null) {
+      return false;
+    }else if (leftNode == null&&rightNode==null) {
+      return true;
+    }else if (!leftNode.getValue().equals(rightNode.getValue())) {
+      return false;
+    }
+    boolean left = compare(leftNode.getLeft(), rightNode.getRight());
+    boolean right = compare(leftNode.getRight(), rightNode.getLeft());
+    return left&&right;
+  }
+
+  /**
+   * 判断二叉树是否对称，采用迭代法
+   */
+  private boolean compare2(TreeNode root) {
+    if (root==null) {
+      return true;
+    }
+    Deque<TreeNode> deque = new LinkedList<>();
+    deque.offerLast(root.getLeft());
+    deque.offerLast(root.getRight());
+    while (!deque.isEmpty()) {
+      TreeNode leftNode = deque.pollFirst();
+      TreeNode rightNode = deque.pollFirst();
+      if (leftNode==null&&rightNode==null) {
+        continue;
+      }
+      if (leftNode==null||rightNode==null||leftNode.getValue().equals(rightNode.getValue())) {
+        return false;
+      }
+      deque.offerLast(leftNode.getLeft());
+      deque.offerLast(rightNode.getRight());
+      deque.offerLast(leftNode.getRight());
+      deque.offerLast(rightNode.getLeft());
+    }
+    return true;
+  }
+
   @Getter
   @Setter
   @NoArgsConstructor

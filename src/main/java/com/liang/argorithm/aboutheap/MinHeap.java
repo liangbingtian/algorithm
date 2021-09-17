@@ -1,4 +1,4 @@
-package com.liang.argorithm.aboutstack;
+package com.liang.argorithm.aboutheap;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -33,18 +33,36 @@ public class MinHeap {
   public int[] topKFrequent(int[] nums, int k) {
     int[] result = new int[k];
     Map<Integer, Integer> map = new HashMap<>();
-    for (int i:nums) {
-      map.put(i, map.getOrDefault(i, 0)+1);
+    for (int i : nums) {
+      map.put(i, map.getOrDefault(i, 0) + 1);
     }
-    Set<Map.Entry<Integer,Integer>> set = map.entrySet();
-    Queue<Entry<Integer, Integer>> queue = new PriorityQueue<>(Comparator.comparingInt(Entry::getValue));
+    Set<Map.Entry<Integer, Integer>> set = map.entrySet();
+    Queue<Entry<Integer, Integer>> queue = new PriorityQueue<>(
+        Comparator.comparingInt(Entry::getValue));
     for (Entry<Integer, Integer> entry : set) {
       queue.offer(entry);
-      if (queue.size()>k) {
+      if (queue.size() > k) {
         queue.poll();
       }
     }
-    for (int i = k-1;i>=0;--i) {
+    for (int i = k - 1; i >= 0; --i) {
+      result[i] = Objects.requireNonNull(queue.poll()).getKey();
+    }
+    return result;
+  }
+
+  /**
+   * 直接声明大顶堆的方式
+   */
+  public int[] topKFrequent2(int[] nums, int k) {
+    int[] result = new int[k];
+    Map<Integer, Integer> map = new HashMap<>();
+    for (int tmp : nums){
+      map.put(tmp, map.getOrDefault(tmp, 0)+1);
+    }
+    PriorityQueue<Map.Entry<Integer, Integer>> queue = new PriorityQueue<>(((o1, o2) -> (o2.getValue()-o1.getValue())));
+    queue.addAll(map.entrySet());
+    for (int i=0;i<k;++i) {
       result[i] = Objects.requireNonNull(queue.poll()).getKey();
     }
     return result;
