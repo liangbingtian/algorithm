@@ -1,5 +1,6 @@
 package com.liang.argorithm.aboutbinarytree;
 
+import apple.laf.JRSUIUtils.Tree;
 import com.liang.argorithm.aboutbinarytree.BinaryTreeTraversal.TreeNode;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -328,15 +329,15 @@ public class BinarySearchTree {
    * 迭代的写法
    */
   TreeNode insertIntoBST3(TreeNode root, int val) {
-    if (root==null) {
+    if (root == null) {
       return new TreeNode(val, null, null);
     }
     TreeNode curr = root;
     while (curr != null) {
       prev = curr;
-      if (val<curr.getValue()) {
+      if (val < curr.getValue()) {
         curr = curr.getLeft();
-      }else if (val>curr.getValue()) {
+      } else if (val > curr.getValue()) {
         curr = curr.getRight();
       }
     }
@@ -349,88 +350,123 @@ public class BinarySearchTree {
   }
 
   /**
-   * 二叉搜索树的节点删除，第一种是递归的写法
+   * 二叉搜索树的节点删除，第一种是递归的写法,对于左子树和右子树节点都存在的情况，方法一，将左子树放到，右子树1的最左边的节点（右子树中序遍历的第一个节点） 的左子树,并且返回右子树1
    */
-   TreeNode deleteBSTNode(TreeNode root, int val) {
-     if (root==null) {
-       return null;
-     }
-     if (val==root.getValue()) {
-       //1.如果左右子树都为空，返回NULL。如果左不为空返回左，右不为空返回右
-       if (root.getLeft()==null) {
-         return root.getRight();
-       }else if (root.getRight()==null) {
-         return root.getLeft();
-       }else {
-         //2.如果左右子树都不为空，将左子树放到右子树的最左边节点的左孩子处,并返回右子树
-         TreeNode newRoot = root.getRight();
-         TreeNode curr = newRoot;
-         while(curr.getLeft()!=null) {
-           curr = curr.getLeft();
-         }
-         curr.setLeft(root.getLeft());
-         return newRoot;
-       }
-     }
-     //递归逻辑
-     if (val<root.getValue()) {
-       root.setLeft(deleteBSTNode(root.getLeft(), val));
-     }else if (val>root.getValue()) {
-       root.setRight(deleteBSTNode(root.getRight(), val));
-     }
-     return root;
-   }
+  TreeNode deleteBSTNode(TreeNode root, int val) {
+    if (root == null) {
+      return null;
+    }
+    if (val == root.getValue()) {
+      //1.如果左右子树都为空，返回NULL。如果左不为空返回左，右不为空返回右
+      if (root.getLeft() == null) {
+        return root.getRight();
+      } else if (root.getRight() == null) {
+        return root.getLeft();
+      } else {
+        //2.如果左右子树都不为空，将左子树放到右子树的最左边节点的左孩子处,并返回右子树
+        TreeNode newRoot = root.getRight();
+        TreeNode curr = newRoot;
+        while (curr.getLeft() != null) {
+          curr = curr.getLeft();
+        }
+        curr.setLeft(root.getLeft());
+        return newRoot;
+      }
+    }
+    //递归逻辑
+    if (val < root.getValue()) {
+      root.setLeft(deleteBSTNode(root.getLeft(), val));
+    } else if (val > root.getValue()) {
+      root.setRight(deleteBSTNode(root.getRight(), val));
+    }
+    return root;
+  }
+
+  /**
+   * 第二种方法，找到直接后继，并用直接后继的值代替要删除的值，而且转换为删除直接后继（直接后继即为右子树中序遍历的第一个节点）
+   */
+  TreeNode deleteBSTNodeAnother(TreeNode root, int val) {
+    if (root == null) {
+      return null;
+    }
+    if (val==root.getValue()) {
+      if (root.getLeft()==null) {
+        return root.getRight();
+      }else if (root.getRight()==null) {
+        return root.getLeft();
+      }else {
+        TreeNode curr = root.getRight();
+        TreeNode prev = root;
+        while (curr.getLeft()!=null) {
+          prev = curr;
+          curr = curr.getLeft();
+        }
+        root.setValue(curr.getValue());
+        if (prev.getLeft()==curr) {
+          prev.setLeft(deleteBSTNodeAnother(curr, val));
+        }else {
+          prev.setRight(deleteBSTNodeAnother(curr, val));
+        }
+      }
+    }
+    if (val<root.getValue()) {
+      root.setLeft(deleteBSTNodeAnother(root.getLeft(),val));
+    }else {
+      root.setRight(deleteBSTNodeAnother(root.getRight(), val));
+    }
+    return root;
+  }
 
   /**
    * 二叉搜索树的节点删除，迭代写法
    */
   TreeNode deleteBSTNode2(TreeNode root, int val) {
-    if (root==null) {
+    if (root == null) {
       return null;
     }
     //记录父节点，用来删除当前节点的时候使用
     TreeNode prev = null;
     TreeNode curr = root;
     //递归的时候是找到的需要删除的节点，然后对该节点进行操作，然后返回给它的父亲节点，迭代写法的时候就需要记录下它的父亲节点
-    while(curr!=null) {
+    while (curr != null) {
       if (curr.getValue().equals(val)) {
         break;
       }
       prev = curr;
-      if (val<curr.getValue()) {
+      if (val < curr.getValue()) {
         curr = curr.getLeft();
-      }else if (val>curr.getValue()) {
+      } else if (val > curr.getValue()) {
         curr = curr.getRight();
       }
     }
     //退出之后找到了要删除的节点，以及它的父亲节点。
     //如果父亲节点为空证明没有找到val，直接返回
-    if (prev==null) {
+    if (prev == null) {
       return deleteOneNode(curr);
     }
     //如果没找到，直接返回root
-    if (curr==null) {
+    if (curr == null) {
       return root;
     }
     //如果找到的话，再确定是左节点还是右节点，进行相应的调整，这里不能直接用等于，因为curr有可能是空，curr是空的时候证明没找到
     //不能直接删除节点
     if (prev.getLeft().equals(curr)) {
       prev.setLeft(deleteOneNode(curr));
-    }else if (prev.getRight().equals(curr)){
+    } else if (prev.getRight().equals(curr)) {
       prev.setRight(deleteOneNode(curr));
     }
     return root;
   }
 
   private TreeNode deleteOneNode(TreeNode node) {
-    if (node.getLeft()==null) {
+    if (node.getLeft() == null) {
       return node.getRight();
-    }else if (node.getRight()==null) {
+    } else if (node.getRight() == null) {
       return node.getLeft();
-    }else {
+    } else {
       TreeNode newRoot = node.getRight();
       TreeNode curr = newRoot;
-      while(curr.getLeft()!=null) {
+      while (curr.getLeft() != null) {
         curr = curr.getLeft();
       }
       curr.setLeft(node.getLeft());
@@ -442,14 +478,14 @@ public class BinarySearchTree {
    * 修剪一颗二叉树，给定节点的区间范围[a, b]
    */
   public TreeNode trimBST(TreeNode node, int a, int b) {
-    if (node==null) {
+    if (node == null) {
       return null;
     }
     //根据二叉搜索树的性质，只需要修剪一边就行。如果范围只在一一个子树
-    if (b<node.getValue()) {
+    if (b < node.getValue()) {
       return trimBST(node.getLeft(), a, b);
     }
-    if (a>node.getValue()) {
+    if (a > node.getValue()) {
       return trimBST(node.getRight(), a, b);
     }
     //如果节点在该区间范围内，则继续修剪其左子树和右子树
@@ -463,14 +499,14 @@ public class BinarySearchTree {
    */
   public TreeNode trimBST1(TreeNode root, int a, int b) {
     //1.如果root是空的话，返回null
-    if (root==null) {
+    if (root == null) {
       return null;
     }
     //2. 然后搜索root,找到[a,b]范围内的root
-    while(root!=null&&(root.getValue()<a||root.getValue()>b)) {
-      if (b<root.getValue()) {
+    while (root != null && (root.getValue() < a || root.getValue() > b)) {
+      if (b < root.getValue()) {
         root = root.getLeft();
-      }else {
+      } else {
         root = root.getRight();
       }
     }
@@ -478,16 +514,16 @@ public class BinarySearchTree {
     TreeNode curr = root;
     //4. 如果curr是空，那么当前树中没有这个范围内的节点，应该全部删掉
     //5. 不是空的话进行修剪，先修剪curr的左孩子不在范围内的。
-    while(curr!=null) {
-      while (curr.getLeft()!=null&&curr.getLeft().getValue()<a) {
+    while (curr != null) {
+      while (curr.getLeft() != null && curr.getLeft().getValue() < a) {
         curr.setLeft(curr.getLeft().getRight());
       }
       //6. 不需管左孩子的右子树，因为左孩子的右子树必然是在满足的条件内的。
       curr = curr.getLeft();
     }
     curr = root;
-    while (curr!=null) {
-      while (curr.getRight()!=null&&curr.getRight().getValue()>b) {
+    while (curr != null) {
+      while (curr.getRight() != null && curr.getRight().getValue() > b) {
         curr.setRight(curr.getRight().getLeft());
       }
       curr = curr.getRight();
@@ -500,13 +536,13 @@ public class BinarySearchTree {
    */
   public TreeNode sortedArrayToBST(int[] nums, int left, int right) {
     //1.递归终止的条件
-    if (left>right) {
+    if (left > right) {
       return null;
     }
-    int middleIndex = left + (right-left)/2;
+    int middleIndex = left + (right - left) / 2;
     TreeNode root = new TreeNode(nums[middleIndex], null, null);
-    root.setLeft(sortedArrayToBST(nums, left, middleIndex-1));
-    root.setRight(sortedArrayToBST(nums, middleIndex+1, right));
+    root.setLeft(sortedArrayToBST(nums, left, middleIndex - 1));
+    root.setRight(sortedArrayToBST(nums, middleIndex + 1, right));
     return root;
   }
 
@@ -520,23 +556,23 @@ public class BinarySearchTree {
     TreeNode root = new TreeNode();
     nodeQue.offerLast(root);
     leftQue.offerLast(0);
-    rightQue.offerLast(nums.length-1);
-    while(!nodeQue.isEmpty()) {
+    rightQue.offerLast(nums.length - 1);
+    while (!nodeQue.isEmpty()) {
       TreeNode tmpRoot = nodeQue.pollFirst();
       int left = leftQue.pollFirst();
       int right = rightQue.pollLast();
-      int middle = left+(right-left)/2;
+      int middle = left + (right - left) / 2;
       //相当于递归的结束条件
-      if (left<=middle-1) {
+      if (left <= middle - 1) {
         tmpRoot.setLeft(new TreeNode());
         nodeQue.offerLast(tmpRoot.getLeft());
         leftQue.offerLast(left);
-        rightQue.offerLast(middle-1);
+        rightQue.offerLast(middle - 1);
       }
-      if (right>=middle+1) {
+      if (right >= middle + 1) {
         tmpRoot.setRight(new TreeNode());
         nodeQue.offerLast(tmpRoot.getRight());
-        leftQue.offerLast(middle+1);
+        leftQue.offerLast(middle + 1);
         rightQue.offerLast(right);
       }
     }
@@ -547,11 +583,11 @@ public class BinarySearchTree {
    * 将二叉搜索树转化为累加树，递归写法
    */
   public void convertBST(TreeNode curr) {
-    if (curr==null) {
+    if (curr == null) {
       return;
     }
     convertBST(curr.getRight());
-    prevNumber+=curr.getValue();
+    prevNumber += curr.getValue();
     curr.setValue(prevNumber);
     convertBST(curr.getLeft());
   }
@@ -560,19 +596,19 @@ public class BinarySearchTree {
    * 把二叉树转化为累加树，迭代写法
    */
   public TreeNode convertBST2(TreeNode root) {
-    if (root==null) {
+    if (root == null) {
       return null;
     }
     prevNumber = 0;
     Deque<TreeNode> deque = new LinkedList<>();
     TreeNode curr = root;
-    while(curr!=null||!deque.isEmpty()) {
-      if (curr!=null) {
+    while (curr != null || !deque.isEmpty()) {
+      if (curr != null) {
         deque.offerFirst(curr);
         curr = curr.getRight();
-      }else {
+      } else {
         curr = deque.pollFirst();
-        curr.setValue(prevNumber+curr.getValue());
+        curr.setValue(prevNumber + curr.getValue());
         prevNumber = curr.getValue();
         curr = curr.getLeft();
       }
