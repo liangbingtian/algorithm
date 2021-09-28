@@ -1,6 +1,8 @@
 package com.liang.argorithm;
 
 import com.alibaba.fastjson.JSON;
+import com.liang.argorithm.aboutproject.entity.AlgorithmQuestion;
+import com.liang.argorithm.aboutproject.mapper.AlgorithmQuestionMapper;
 import com.liang.argorithm.others.ClimbStairs;
 import com.liang.argorithm.aboutarray.RemoveArrayElements;
 import com.liang.argorithm.aboutarray.BinarySearch;
@@ -14,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.xml.crypto.Data;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +45,9 @@ public class AlgorithmTest {
 
   @Autowired
   private RemoveArrayElements removeElements;
+
+  @Autowired
+  private AlgorithmQuestionMapper mapper;
 
   @Test
   public void testSortResult() {
@@ -114,6 +120,14 @@ public class AlgorithmTest {
   public void testRemoveElement() {
     int [] a = {-1,0,3,5,9,12};
     binarySearch.BinarySearch(a, 2);
+  }
+
+  @Test
+  public void testInsert() {
+    AlgorithmQuestion algorithmQuestion = new AlgorithmQuestion();
+    algorithmQuestion.setQuestionName("网络延迟时间");
+    algorithmQuestion.setQuestionNo("743");
+    mapper.insertSelective(algorithmQuestion);
   }
 
 
