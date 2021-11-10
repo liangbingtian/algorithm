@@ -83,7 +83,7 @@ public class DirectedAcyclicGraph {
     //1.找到一个未遍历过的节点
     for (int i=0;i<adj.size();++i) {
       if (nodeColors[i]==0) {
-        bfs(i);
+        dfs(i);
         if (!valid){
           return false;
         }
@@ -94,7 +94,7 @@ public class DirectedAcyclicGraph {
   }
 
   //深度优先便来进行拓扑排序的递归函数
-  private void bfs(int u) {
+  private void dfs(int u) {
     //1.先将其设置为1
     nodeColors[u] = 1;
     //2.再进行条件递归，深搜相当于后续遍历
@@ -102,7 +102,7 @@ public class DirectedAcyclicGraph {
     while(iterator.hasNext()) {
       int num = iterator.next();
       if (nodeColors[num]==0) {
-        bfs(num);
+        dfs(num);
         if (!valid) {
           return;
         }

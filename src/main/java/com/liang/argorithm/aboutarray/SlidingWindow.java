@@ -133,7 +133,7 @@ public class SlidingWindow {
         }
         i++;
       }
-      int tmpLength = j - i;
+      int tmpLength = j - i+1;
       if (tmpLength > resultLength) {
         resultLength = tmpLength;
       }

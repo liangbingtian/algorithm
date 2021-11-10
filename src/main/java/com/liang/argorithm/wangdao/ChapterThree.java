@@ -80,57 +80,5 @@ public class ChapterThree {
     return true;
   }
 
-  @Getter
-  @Setter
-  private class SharedStack {
 
-    private int[] num;
-    private int s1;
-    private int s2;
-
-    public SharedStack(int k) {
-      num = new int[k];
-      s1 = -1;
-      s2 = num.length;
-    }
-
-    public boolean isFull() {
-      return (s2 - s1) == 1;
-    }
-
-    /**
-     * @param i     表是入的栈号，1表示入s1栈，2表示入s2栈
-     * @param value
-     * @return
-     */
-    public boolean push(int i, int value) {
-      if (isFull()) {
-        return false;
-      }
-      if (i == 1) {
-        num[s1++] = value;
-      } else if (i == 2) {
-        num[s2--] = value;
-      } else {
-        return false;
-      }
-      return true;
-    }
-
-    public int pop(int i, int value) {
-      if (i == 1) {
-        if (s1 == -1) {
-          return -1;
-        }
-        return num[s1--];
-      } else if (i == 2) {
-        if (s2 == num.length) {
-          return -1;
-        }
-        return num[s2++];
-      }
-      return -1;
-    }
-
-  }
 }

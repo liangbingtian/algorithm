@@ -1,7 +1,10 @@
 package com.liang.argorithm.aboutstack;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 /**
@@ -120,5 +123,86 @@ public class MatchingWithStack {
     return s.length() == 1 && s.charAt(0) < '0' || s.charAt(0) > '9';
   }
 
+  /**
+   * 模拟栈的操作判断入栈序列和出栈序列是否合法
+   */
+  public static boolean validateStackSequences(int[] pushed, int[] popped) {
+    Deque<Integer> deque = new ArrayDeque<>();
+    int pushIndex = 0;
+    int popIndex = 0;
+    deque.offerFirst(pushed[pushIndex++]);
+    while(!deque.isEmpty()) {
+      if (deque.peekFirst().equals(popped[popIndex])) {
+        deque.pollFirst();
+        popIndex++;
+        if (deque.isEmpty()&&pushIndex<pushed.length) {
+          deque.offerFirst(pushed[pushIndex++]);
+        }
+      }else if (pushIndex<pushed.length) {
+        deque.offerFirst(pushed[pushIndex++]);
+      }else {
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+  /**
+   * 共享栈
+   */
+  @Getter
+  @Setter
+  private class SharedStack {
+
+    private int[] num;
+    private int s1;
+    private int s2;
+
+    public SharedStack(int k) {
+      num = new int[k];
+      s1 = -1;
+      s2 = num.length;
+    }
+
+    public boolean isFull() {
+      return (s2 - s1) == 1;
+    }
+
+    /**
+     * @param i     表是入的栈号，1表示入s1栈，2表示入s2栈
+     * @param value
+     * @return
+     */
+    public boolean push(int i, int value) {
+      if (isFull()) {
+        return false;
+      }
+      if (i == 1) {
+        num[s1++] = value;
+      } else if (i == 2) {
+        num[s2--] = value;
+      } else {
+        return false;
+      }
+      return true;
+    }
+
+    public int pop(int i, int value) {
+      if (i == 1) {
+        if (s1 == -1) {
+          return -1;
+        }
+        return num[s1--];
+      } else if (i == 2) {
+        if (s2 == num.length) {
+          return -1;
+        }
+        return num[s2++];
+      }
+      return -1;
+    }
+
+  }
 
 }

@@ -127,45 +127,7 @@ public class ChapterTwo {
     return dummyNode.next;
   }
 
-  public ListNode questionSix2(ListNode root) {
-    if (root == null || root.next == null) {
-      return root;
-    }
-    ListNode prev = null;
-    ListNode fast = root;
-    ListNode slow = root;
-    while (fast != null && fast.next != null) {
-      prev = slow;
-      slow = slow.next;
-      fast = fast.next.next;
-    }
-    prev.next = null;
-    ListNode l1 = questionSix2(root);
-    ListNode l2 = questionSix2(slow);
-    return merge(l1, l2);
-  }
 
-  private ListNode merge(ListNode l1, ListNode l2) {
-    ListNode p = new ListNode();
-    ListNode result = p;
-    while (l1 != null && l2 != null) {
-      if (l1.val < l2.val) {
-        p.next = l1;
-        l1 = l1.next;
-      } else {
-        p.next = l2;
-        l2 = l2.next;
-      }
-      p = p.next;
-    }
-    if (l1 != null) {
-      p.next = l1;
-    }
-    if (l2 != null) {
-      p.next = l2;
-    }
-    return result.next;
-  }
 
   /**
    * 链表相交

@@ -109,7 +109,7 @@ public class RemoveArrayElements {
   public boolean compareBackSpaceString2(String str1, String str2) {
     int i = str1.length() - 1;
     int j = str2.length() - 1;
-    while (i >= 0 && j >= 0) {
+    while (i >= 0 || j >= 0) {
       int skip1 = 0;
       int skip2 = 0;
       while (i >= 0) {

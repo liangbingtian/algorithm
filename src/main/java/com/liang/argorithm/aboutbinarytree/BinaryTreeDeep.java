@@ -16,8 +16,8 @@ public class BinaryTreeDeep {
   private int result = 1;
 
   private int wplResult = 0;
+
   /**
-   *
    * 二叉树的最大深度，递归方式
    */
   int binaryTreeMaxDeep(TreeNode treeNode) {
@@ -136,14 +136,14 @@ public class BinaryTreeDeep {
    */
   public void getWpl(TreeNode root, int depth) {
     //先序遍历计算查找所有叶子节点的深度，因为先序遍历可以一层一层的记录。后续遍历回溯只能统计总和
-    if (root==null) {
+    if (root == null) {
       return;
     }
-    if (root.getLeft()==null&&root.getRight()==null) {
-      wplResult+=depth*root.getValue();
+    if (root.getLeft() == null && root.getRight() == null) {
+      wplResult += depth * root.getValue();
     }
-    getWpl(root.getLeft(), depth+1);
-    getWpl(root.getRight(), depth+1);
+    getWpl(root.getLeft(), depth + 1);
+    getWpl(root.getRight(), depth + 1);
   }
 
   /**
@@ -152,23 +152,23 @@ public class BinaryTreeDeep {
   public int getWpl2(TreeNode root) {
     int result = 0;
     int depth = 0;
-    if (root==null) {
+    if (root == null) {
       return result;
     }
     Deque<TreeNode> deque = new LinkedList<>();
     deque.offerLast(root);
-    while(!deque.isEmpty()) {
+    while (!deque.isEmpty()) {
       int size = deque.size();
       depth++;
-      for (int i=1;i<=size;++i) {
+      for (int i = 1; i <= size; ++i) {
         TreeNode curr = deque.pollFirst();
-        if (curr.getLeft()!=null&&curr.getRight()!=null) {
-          result+=depth*curr.getValue();
+        if (curr.getLeft() != null && curr.getRight() != null) {
+          result += depth * curr.getValue();
         }
-        if (curr.getLeft()!=null) {
+        if (curr.getLeft() != null) {
           deque.offerLast(curr.getLeft());
         }
-        if (curr.getRight()!=null) {
+        if (curr.getRight() != null) {
           deque.offerLast(curr.getRight());
         }
       }
