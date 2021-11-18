@@ -290,4 +290,15 @@ public class BinaryTreeTraversal {
     private TreeNode right;
   }
 
+  @Getter
+  @Setter
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class TreeNodeCh {
+
+    private Character value;
+    private TreeNodeCh left;
+    private TreeNodeCh right;
+  }
+
 }

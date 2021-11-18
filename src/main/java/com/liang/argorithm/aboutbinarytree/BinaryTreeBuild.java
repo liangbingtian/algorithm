@@ -1,9 +1,13 @@
 package com.liang.argorithm.aboutbinarytree;
 
 import com.liang.argorithm.aboutbinarytree.BinaryTreeTraversal.TreeNode;
+import com.liang.argorithm.aboutbinarytree.BinaryTreeTraversal.TreeNodeCh;
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Objects;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 /**
  * 二叉树构建
@@ -131,31 +135,152 @@ public class BinaryTreeBuild {
   /**
    * 根据数组构建最大二叉树
    */
-    TreeNode constructMaximumBinaryTree(int[] nums) {
-      if (nums.length==0) {
-        return null;
-      }
-      return constructMaximumBinaryTree(nums, 0, nums.length-1);
+  TreeNode constructMaximumBinaryTree(int[] nums) {
+    if (nums.length == 0) {
+      return null;
     }
+    return constructMaximumBinaryTree(nums, 0, nums.length - 1);
+  }
 
-    private TreeNode constructMaximumBinaryTree(int[] nums, int left, int right) {
-      //1.递归的终止条件
-      if (left>right) {
-        return null;
-      }
-      int maxValue = Integer.MIN_VALUE;
-      int maxIndex = left;
-      for (int i=left;i<=right;++i) {
-        if (nums[i]>maxValue) {
-          maxIndex = i;
-          maxValue = nums[i];
-        }
-      }
-      TreeNode root = new TreeNode(maxValue, null, null);
-      root.setLeft(constructMaximumBinaryTree(nums, left, maxIndex-1));
-      root.setRight(constructMaximumBinaryTree(nums, maxIndex+1, right));
-      return root;
+  private TreeNode constructMaximumBinaryTree(int[] nums, int left, int right) {
+    //1.递归的终止条件
+    if (left > right) {
+      return null;
     }
+    int maxValue = Integer.MIN_VALUE;
+    int maxIndex = left;
+    for (int i = left; i <= right; ++i) {
+      if (nums[i] > maxValue) {
+        maxIndex = i;
+        maxValue = nums[i];
+      }
+    }
+    TreeNode root = new TreeNode(maxValue, null, null);
+    root.setLeft(constructMaximumBinaryTree(nums, left, maxIndex - 1));
+    root.setRight(constructMaximumBinaryTree(nums, maxIndex + 1, right));
+    return root;
+  }
 
+  /**
+   * 求二叉树的WPL，所有叶子的带权路径之和,由于是算分叉，那么深度可从1开始，但是最后乘的时候要减一
+   */
+  int wplResult;
 
+  public void wpl(TreeNode root, int depth) {
+    if (root == null) {
+      return;
+    }
+    if (root.getLeft() == null && root.getRight() == null) {
+      wplResult += (root.getValue() * (depth - 1));
+      return;
+    }
+    wpl(root.getLeft(), depth + 1);
+    wpl(root.getRight(), depth + 1);
+  }
+
+  /**
+   * 二叉树转化为中缀表达式
+   */
+  StringBuilder expSb;
+
+  public void treeToExp(TreeNode root, int depth) {
+    if (root == null) {
+      return;
+    }
+    if (root.getLeft() == null && root.getRight() == null) {
+      expSb.append(root.getValue());
+      return;
+    }
+    if (depth > 1) {
+      expSb.append("(");
+    }
+    treeToExp(root.getLeft(), depth);
+    expSb.append(root.getValue());
+    treeToExp(root.getRight(), depth);
+    if (depth > 1) {
+      expSb.append(")");
+    }
+  }
+
+  /**
+   * 中缀表达式转化为二叉树，先是迭代的写法
+   */
+  public TreeNodeCh ExpToTree(String str) {
+    if (StringUtils.isEmpty(str)) {
+      return null;
+    }
+    char[] chars = str.toCharArray();
+    Deque<TreeNodeCh> ops = new ArrayDeque<>();
+    Deque<TreeNodeCh> nums = new ArrayDeque<>();
+    for (char ch : chars) {
+      switch (ch) {
+        case '(':
+          ops.offerFirst(new TreeNodeCh(ch, null, null));
+          break;
+        case ')':
+          while(!ops.isEmpty()&&ops.peekFirst().getValue()!='(') {
+            transform(ops, nums);
+          }
+          ops.pollFirst();
+          break;
+        case '+':
+        case '-':
+          while (!ops.isEmpty()&&ops.peekFirst().getValue()!='(') {
+            transform(ops, nums);
+          }
+          ops.offerFirst(new TreeNodeCh(ch, null, null));
+          break;
+        case '*':
+        case '/':
+          while (!ops.isEmpty()&&(ops.pollFirst().getValue()=='*'||ops.pollFirst().getValue()=='/')){
+            transform(ops, nums);
+          }
+          ops.offerFirst(new TreeNodeCh(ch, null, null));
+          break;
+        default:
+          nums.offerFirst(new TreeNodeCh(ch, null, null));
+      }
+    }
+    return nums.peekFirst();
+  }
+
+  private void transform(Deque<TreeNodeCh> ops, Deque<TreeNodeCh> nums) {
+    TreeNodeCh right = new TreeNodeCh(Objects.requireNonNull(nums.pollFirst()).getValue(), null,
+        null);
+    TreeNodeCh left = new TreeNodeCh(Objects.requireNonNull(nums.pollFirst()).getValue(), null, null);
+    TreeNodeCh root = ops.pollFirst();
+    root.setLeft(left);
+    root.setRight(right);
+    nums.offerFirst(root);
+  }
+
+  /**
+   * 表达式树，使用后续遍历计算就转化为了逆波兰式求值
+   */
+  public int calculateEvalTree(TreeNodeCh root) {
+    if (root==null) {
+      return 0;
+    }
+    if (root.getLeft()==null&&root.getRight()==null) {
+      return root.getValue()-'0';
+    }
+    int leftNum = calculateEvalTree(root.getLeft());
+    int rightNum = calculateEvalTree(root.getRight());
+    int resultValue = 0;
+    switch (root.getValue()) {
+      case '+':
+        resultValue = leftNum+rightNum;
+        break;
+      case '-':
+        resultValue = leftNum-rightNum;
+        break;
+      case '*':
+        resultValue =  leftNum*rightNum;
+        break;
+      case '/':
+        resultValue =  leftNum/rightNum;
+        break;
+    }
+    return resultValue;
+  }
 }

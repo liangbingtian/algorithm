@@ -135,4 +135,17 @@ public class ArraySearch {
     }
     return result;
   }
+
+  /**
+   * 数组逆转，才用递归方式
+   */
+   public void reverseNum(int[] nums, int depth) {
+     if (depth>=nums.length) {
+       return;
+     }
+     int tmp = nums[depth];
+     reverseNum(nums, depth+1);
+     nums[nums.length-1-depth] = tmp;
+   }
+
 }

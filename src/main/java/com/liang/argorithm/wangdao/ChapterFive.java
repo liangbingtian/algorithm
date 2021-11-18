@@ -319,7 +319,7 @@ public class ChapterFive {
   }
 
   /**
-   * 将二叉树的叶子节点链接成一个单链表，用所有的遍历都能做，这里选层序遍历
+   * 将二叉树的叶子节点链接成一个单链表，用所有的遍历都能做，这里选层序遍历,层序并不能做！！！应该第一个节点找的是最左下角的
    */
   public void questionSixTeen(TreeNode root) {
     if (root == null) {
