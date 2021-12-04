@@ -143,4 +143,74 @@ public class CharArrayOperate {
     reverseString(stringBuilder, 0, s.length()-1);
     return stringBuilder.toString();
   }
+
+  /**
+   * 最长回文子串,方法一，暴力求解法
+   */
+  public String longestPalindrome(String s) {
+    //1. 一些返回的特殊条件
+    if (s.length()<2) {
+      return s;
+    }
+    int maxLength = Integer.MIN_VALUE;
+    int begin = 0;
+    char[] array = s.toCharArray();
+    for (int i = 0;i<array.length-1;++i) {
+      for (int j = 0;j<array.length;++j) {
+        //最长回文子串。如果长度是最长，并且回文
+        if (j-i+1>maxLength&&isPalindrome(array, i, j)) {
+          maxLength = j-i+1;
+          begin = i;
+        }
+      }
+    }
+    return s.substring(begin, begin+maxLength);
+  }
+
+  boolean isPalindrome(char[] array, int i, int j) {
+    while(i<j) {
+      if (array[i]!=array[j]) {
+        return false;
+      }
+      i++;
+      j--;
+    }
+    return true;
+  }
+
+  /**
+   * 最长回文子串，方法二，中心扩散法
+   */
+  public String longestPalindrome2(String s) {
+    if (s.length()<2) {
+      return s;
+    }
+    int maxLength = 1;
+    int begin = 0;
+    char[] array = s.toCharArray();
+    for (int i=0;i<s.length()-1;++i) {
+        int len1 = getPalindromeCenterLen(array, i, i);
+        int len2 = getPalindromeCenterLen(array, i, i+1);
+        len1 = Math.max(len1, len2);
+        if (len1>maxLength) {
+          maxLength = len1;
+          begin = i-(maxLength-1)/2;
+        }
+    }
+    return s.substring(begin, begin+maxLength);
+  }
+
+  private int getPalindromeCenterLen(char[] ch, int left, int right) {
+    int i = left;
+    int j = right;
+    while (i>=0&&j<ch.length) {
+      if (ch[i]==ch[j]) {
+        i--;
+        j++;
+      }else {
+        break;
+      }
+    }
+    return j-i-1;
+  }
 }

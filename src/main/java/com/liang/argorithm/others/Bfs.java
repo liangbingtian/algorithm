@@ -87,33 +87,66 @@ public class Bfs {
     Set<String> headSet = new HashSet<>(Collections.singletonList(beginWord));
     Set<String> tailSet = new HashSet<>(Collections.singletonList(endWord));
     Map<String, List<String>> map = new HashMap<>();
-    if (findLadders(headSet, tailSet, wordSet, true, map)) {
-      dfsLeter(map, result, beginWord, endWord, new LinkedList<String>());
+    boolean flag = true;
+    boolean isFront = true;
+    while(!headSet.isEmpty() && !tailSet.isEmpty()&&flag) {
+      if (headSet.size()<tailSet.size()) {
+        Set<String> tmp = headSet;
+        headSet = tailSet;
+        tailSet = tmp;
+        isFront = false;
+      }
+      Set<String> nextLayer = new HashSet<>();
+      for (String str:headSet) {
+        StringBuilder sb = new StringBuilder(str);
+        for (int i=0;i<sb.length();++i) {
+          char oldChar = sb.charAt(i);
+          for (char ch = 'a';ch<='z';++ch) {
+            sb.setCharAt(i, ch);
+            String curr = sb.toString();
+            if (wordSet.contains(curr)) {
+              String up = isFront?str:curr;
+              String down = isFront?curr:str;
+              map.putIfAbsent(up, new ArrayList<>());
+              map.get(up).add(down);
+              wordSet.remove(curr);
+              nextLayer.add(curr);
+              if (tailSet.contains(curr)) {
+                flag = false;
+              }
+            }
+          }
+          sb.setCharAt(i, oldChar);
+        }
+      }
+      Set<String> tmp = headSet;
+      headSet = nextLayer;
+      nextLayer = tmp;
+      nextLayer.clear();
     }
     return result;
   }
-
   private boolean findLadders(Set<String> headSet, Set<String> tailSet, Set<String> wordSet
       , boolean isFront, Map<String, List<String>> map) {
     if (headSet.isEmpty()) {
       return false;
     }
-    if (headSet.size()>tailSet.size()) {
+    if (headSet.size() > tailSet.size()) {
       return findLadders(tailSet, headSet, wordSet, !isFront, map);
     }
     boolean isMeet = false;
     wordSet.removeAll(headSet);
     Set<String> nextLayer = new HashSet<>();
-    for (String str:headSet) {
+    for (String str : headSet) {
       StringBuilder sb = new StringBuilder(str);
-      for (int i=0;i<sb.length();++i) {
+      for (int i = 0; i < sb.length(); ++i) {
         char old = sb.charAt(i);
-        for (char ch = 'a';ch<='z';++ch) {
+        for (char ch = 'a'; ch <= 'z'; ++ch) {
           sb.setCharAt(i, ch);
           String currStr = sb.toString();
           if (wordSet.contains(currStr)) {
-            String up = isFront?str:currStr;
-            String down = isFront?currStr:str;
+            String up = isFront ? str : currStr;
+            String down = isFront ? currStr : str;
             if (!map.containsKey(up)) {
               map.put(up, new ArrayList<>());
             }
@@ -132,6 +165,10 @@ public class Bfs {
     }
     return findLadders(nextLayer, tailSet, wordSet, isFront, map);
   }
+
+  /**
+   * 尝试使用非递归的方法
+   */
 
   private void dfsLeter(Map<String, List<String>> oneAndItsSubs, List<List<String>> result,
       String beginWord, String endWord, LinkedList<String> list) {
@@ -152,7 +189,7 @@ public class Bfs {
   public static void main(String[] args) {
     String begin = "hit";
     String end = "cog";
-    List<String> wordList = Arrays.asList("hot","dot","dog","lot","log","cog");
+    List<String> wordList = Arrays.asList("hot", "dot", "dog", "lot", "log", "cog");
     new Bfs().findLadders(begin, end, wordList);
   }
 

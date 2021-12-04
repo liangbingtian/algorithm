@@ -210,45 +210,62 @@ public class BinaryTreeBuild {
       return null;
     }
     char[] chars = str.toCharArray();
-    Deque<TreeNodeCh> ops = new ArrayDeque<>();
+    Deque<Character> ops = new ArrayDeque<>();
     Deque<TreeNodeCh> nums = new ArrayDeque<>();
     for (char ch : chars) {
-      switch (ch) {
-        case '(':
-          ops.offerFirst(new TreeNodeCh(ch, null, null));
-          break;
-        case ')':
-          while(!ops.isEmpty()&&ops.peekFirst().getValue()!='(') {
+      //1. 首先如果是非符号，则放入数据组
+      if (opsPriority(ch) == 0) {
+        nums.offerFirst(new TreeNodeCh(ch, null, null));
+      } else {
+        //如果是符号,如果符号栈顶为空，或者栈顶的优先级大于等于当前优先级，则弹出
+        if (ops.isEmpty() || opsPriority(ops.peekFirst()) < opsPriority(ch)) {
+          ops.offerFirst(ch);
+        } else {
+          //如若不然，将栈顶优先级大于等于当前符号的，都弹出
+          while (!ops.isEmpty() && ops.peekFirst() != '('
+              && opsPriority(ops.peekFirst()) <= opsPriority(ch)) {
             transform(ops, nums);
           }
-          ops.pollFirst();
-          break;
-        case '+':
-        case '-':
-          while (!ops.isEmpty()&&ops.peekFirst().getValue()!='(') {
-            transform(ops, nums);
+          if (ch == ')') {
+            ops.pollFirst();
+          } else {
+            ops.offerFirst(ch);
           }
-          ops.offerFirst(new TreeNodeCh(ch, null, null));
-          break;
-        case '*':
-        case '/':
-          while (!ops.isEmpty()&&(ops.pollFirst().getValue()=='*'||ops.pollFirst().getValue()=='/')){
-            transform(ops, nums);
-          }
-          ops.offerFirst(new TreeNodeCh(ch, null, null));
-          break;
-        default:
-          nums.offerFirst(new TreeNodeCh(ch, null, null));
+        }
       }
+    }
+    while (!ops.isEmpty()) {
+      transform(ops, nums);
     }
     return nums.peekFirst();
   }
 
-  private void transform(Deque<TreeNodeCh> ops, Deque<TreeNodeCh> nums) {
+  /**
+   * 定义出符号优先级，数字越大优先级越高，把需要插入的非符号定义优先级为0
+   *
+   * @param c
+   * @return
+   */
+  private int opsPriority(char c) {
+    if (c == '(') {
+      return 4;
+    } else if (c == '*' || c == '/') {
+      return 3;
+    } else if (c == '+' || c == '-') {
+      return 2;
+    } else if (c == ')') {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  private void transform(Deque<Character> ops, Deque<TreeNodeCh> nums) {
     TreeNodeCh right = new TreeNodeCh(Objects.requireNonNull(nums.pollFirst()).getValue(), null,
         null);
-    TreeNodeCh left = new TreeNodeCh(Objects.requireNonNull(nums.pollFirst()).getValue(), null, null);
-    TreeNodeCh root = ops.pollFirst();
+    TreeNodeCh left = new TreeNodeCh(Objects.requireNonNull(nums.pollFirst()).getValue(), null,
+        null);
+    TreeNodeCh root = new TreeNodeCh(ops.pollFirst(), null, null);
     root.setLeft(left);
     root.setRight(right);
     nums.offerFirst(root);
@@ -258,29 +275,55 @@ public class BinaryTreeBuild {
    * 表达式树，使用后续遍历计算就转化为了逆波兰式求值
    */
   public int calculateEvalTree(TreeNodeCh root) {
-    if (root==null) {
+    if (root == null) {
       return 0;
     }
-    if (root.getLeft()==null&&root.getRight()==null) {
-      return root.getValue()-'0';
+    if (root.getLeft() == null && root.getRight() == null) {
+      return root.getValue() - '0';
     }
     int leftNum = calculateEvalTree(root.getLeft());
     int rightNum = calculateEvalTree(root.getRight());
     int resultValue = 0;
     switch (root.getValue()) {
       case '+':
-        resultValue = leftNum+rightNum;
+        resultValue = leftNum + rightNum;
         break;
       case '-':
-        resultValue = leftNum-rightNum;
+        resultValue = leftNum - rightNum;
         break;
       case '*':
-        resultValue =  leftNum*rightNum;
+        resultValue = leftNum * rightNum;
         break;
       case '/':
-        resultValue =  leftNum/rightNum;
+        resultValue = leftNum / rightNum;
         break;
     }
     return resultValue;
   }
+
+  /**
+   * 前序遍历构造二叉搜索树，由于二叉搜索树的前序遍历，所以第一个为根节点，
+   * 且数组中肯定可以找到一部分小于根另一部分大于根的
+   */
+   public TreeNode dfs(int[] preorder, int left, int right) {
+     if (left>right) {
+       return null;
+     }
+     TreeNode root = new TreeNode(preorder[0], null, null);
+     //找到最后一个左节点小于又节点的位置，这时候二分派上用场
+     int l = left;
+     int r = right;
+     while (l<r) {
+       int mid = l+(r-l+1)/2;
+       if (preorder[l]<preorder[mid]) {
+         l = mid;
+       }else {
+         r = mid-1;
+       }
+     }
+     root.setLeft(dfs(preorder, left+1, l));
+     root.setRight(dfs(preorder, l+1, right));
+     return root;
+   }
+
 }
