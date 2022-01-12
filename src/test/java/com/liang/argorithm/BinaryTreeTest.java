@@ -1,7 +1,7 @@
 package com.liang.argorithm;
 
-import com.liang.argorithm.aboutbinarytree.BinaryTreeBuild;
-import com.liang.argorithm.aboutbinarytree.BinaryTreeTraversal.TreeNode;
+import com.liang.argorithm.argorithmquestion.aboutbinarytree.BinaryTreeBuild;
+import com.liang.argorithm.argorithmquestion.aboutbinarytree.BinaryTreeTraversal.TreeNode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

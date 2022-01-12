@@ -1,11 +1,10 @@
 package com.liang.argorithm;
 
-import com.liang.argorithm.aboutchar.CharArrayOperate;
+import com.liang.argorithm.argorithmquestion.aboutchar.CharArrayOperate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**

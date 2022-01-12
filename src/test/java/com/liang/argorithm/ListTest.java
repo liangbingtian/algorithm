@@ -1,7 +1,7 @@
 package com.liang.argorithm;
 
-import com.liang.argorithm.aboutlist.MyLinkedListDoubleList;
-import com.liang.argorithm.aboutlist.MyLinkedListSingleList;
+import com.liang.argorithm.argorithmquestion.aboutlist.MyLinkedListDoubleList;
+import com.liang.argorithm.argorithmquestion.aboutlist.MyLinkedListSingleList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

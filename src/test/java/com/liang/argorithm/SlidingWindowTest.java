@@ -1,6 +1,6 @@
 package com.liang.argorithm;
 
-import com.liang.argorithm.aboutarray.SlidingWindow;
+import com.liang.argorithm.argorithmquestion.aboutarray.SlidingWindow;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
