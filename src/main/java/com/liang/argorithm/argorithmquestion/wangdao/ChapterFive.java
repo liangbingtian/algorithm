@@ -1,6 +1,7 @@
 package com.liang.argorithm.argorithmquestion.wangdao;
 
-import com.liang.argorithm.argorithmquestion.aboutbinarytree.BinaryTreeTraversal.TreeNode;
+import com.liang.argorithm.argorithmquestion.entity.PareBroNode;
+import com.liang.argorithm.argorithmquestion.entity.TreeNode;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -427,16 +428,6 @@ public class ChapterFive {
     if (depth > 1) {
       stringBuilder.append(")");
     }
-  }
-
-  @Data
-  @NoArgsConstructor
-  @AllArgsConstructor
-  private static class PareBroNode {
-
-    private Integer val;
-    private PareBroNode lChild;
-    private PareBroNode rBrother;
   }
 
   /**

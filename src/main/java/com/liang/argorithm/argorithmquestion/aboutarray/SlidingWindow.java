@@ -283,4 +283,28 @@ public class SlidingWindow {
     }
     return result;
   }
+
+  /**
+   * 无重复字符的最长子串
+   * 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
+   */
+  public int lengthOfLongestSubstring(String s) {
+    int i = 0;
+    int maxLength = Integer.MIN_VALUE;
+    Map<Character, Integer> words = new HashMap<>();
+    char[] chars = s.toCharArray();
+    for(int j=0;j<chars.length;++j) {
+      if(words.containsKey(chars[j])) {
+        int index = words.get(chars[j]);
+        i = index<i?i:index+1;
+      }
+      words.put(chars[j], j);
+      maxLength = Math.max(maxLength, j-i+1);
+    }
+    return maxLength==Integer.MIN_VALUE?0:maxLength;
+  }
+
+  public static void main(String[] args) {
+    new SlidingWindow().lengthOfLongestSubstring("abba");
+  }
 }

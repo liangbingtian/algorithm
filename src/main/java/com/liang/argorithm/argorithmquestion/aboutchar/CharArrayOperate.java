@@ -182,35 +182,35 @@ public class CharArrayOperate {
    * 最长回文子串，方法二，中心扩散法
    */
   public String longestPalindrome2(String s) {
-    if (s.length()<2) {
+    if(s.length()<2) {
       return s;
     }
-    int maxLength = 1;
+    int maxSize = Integer.MIN_VALUE;
     int begin = 0;
-    char[] array = s.toCharArray();
-    for (int i=0;i<s.length()-1;++i) {
-        int len1 = getPalindromeCenterLen(array, i, i);
-        int len2 = getPalindromeCenterLen(array, i, i+1);
-        len1 = Math.max(len1, len2);
-        if (len1>maxLength) {
-          maxLength = len1;
-          begin = i-(maxLength-1)/2;
-        }
-    }
-    return s.substring(begin, begin+maxLength);
-  }
-
-  private int getPalindromeCenterLen(char[] ch, int left, int right) {
-    int i = left;
-    int j = right;
-    while (i>=0&&j<ch.length) {
-      if (ch[i]==ch[j]) {
-        i--;
-        j++;
-      }else {
-        break;
+    for(int i=0;i<s.length();++i) {
+      int size1 = getLongestPalindrome(s, i, i);
+      int size2 = getLongestPalindrome(s, i, i+1);
+      size1 = Math.max(size1, size2);
+      if(size1>maxSize) {
+        begin = i-(size1-1)/2;
+        maxSize = size1;
       }
     }
+    return s.substring(begin, begin+maxSize);
+  }
+
+  private int getLongestPalindrome(String s, int i, int j) {
+    while(i>=0&&j<s.length()) {
+      if(s.charAt(i)!=s.charAt(j)) {
+        break;
+      }
+      i--;
+      j++;
+    }
     return j-i-1;
+  }
+
+  public static void main(String[] args) {
+    new CharArrayOperate().longestPalindrome2("ac");
   }
 }

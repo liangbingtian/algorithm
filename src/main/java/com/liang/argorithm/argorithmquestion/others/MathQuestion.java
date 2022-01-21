@@ -1,8 +1,7 @@
 package com.liang.argorithm.argorithmquestion.others;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+
+import com.liang.argorithm.argorithmquestion.entity.ListNode;
 
 /**
  * 有关数学相关的问题
@@ -12,16 +11,9 @@ import lombok.Setter;
  */
 public class MathQuestion {
 
-  @Getter
-  @Setter
-  @AllArgsConstructor
-  private static class ListNode {
-
-    private int value;
-    private ListNode next;
-  }
 
   /**
+   * 两数相加
    * 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
    * <p>
    * 请你将两个数相加，并以相同形式返回一个表示和的链表。
@@ -51,10 +43,10 @@ public class MathQuestion {
       }
       carry = sum/10;
       if (l1!=null) {
-        l1 = l1.next;
+        l1 = l1.getNext();
       }
       if (l2!=null) {
-        l2 = l2.next;
+        l2 = l2.getNext();
       }
     }
     if (carry>0) {

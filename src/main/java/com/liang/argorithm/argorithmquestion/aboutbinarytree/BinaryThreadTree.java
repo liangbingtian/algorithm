@@ -1,6 +1,6 @@
 package com.liang.argorithm.argorithmquestion.aboutbinarytree;
 
-import com.liang.argorithm.argorithmquestion.aboutbinarytree.BinaryTreeTraversal.TreeNode;
+import com.liang.argorithm.argorithmquestion.entity.ThreadNode;
 import java.util.Deque;
 import java.util.LinkedList;
 import lombok.AllArgsConstructor;
@@ -14,20 +14,6 @@ import lombok.NoArgsConstructor;
  * @date 2021/09/12 下午8:07
  */
 public class BinaryThreadTree {
-
-  @Data
-  @NoArgsConstructor
-  @AllArgsConstructor
-  private static class ThreadNode {
-
-    private int value;
-    private ThreadNode left;
-    private ThreadNode right;
-    //0表示左孩子，1表示左前驱
-    private int lTag;
-    //0表示右孩子，1表示右前驱
-    private int rTag;
-  }
 
   //-----------------中序线索二叉树-----------------------
 
@@ -44,7 +30,7 @@ public class BinaryThreadTree {
     while (curr != null || !deque.isEmpty()) {
       if (curr != null) {
         deque.offerFirst(curr);
-        curr = curr.left;
+        curr = curr.getLeft();
       } else {
         curr = deque.pollFirst();
         if (curr.getLeft() == null) {

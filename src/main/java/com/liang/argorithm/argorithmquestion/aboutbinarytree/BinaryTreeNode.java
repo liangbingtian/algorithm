@@ -1,6 +1,7 @@
 package com.liang.argorithm.argorithmquestion.aboutbinarytree;
 
-import com.liang.argorithm.argorithmquestion.aboutbinarytree.BinaryTreeTraversal.TreeNode;
+import com.liang.argorithm.argorithmquestion.entity.RecordPair;
+import com.liang.argorithm.argorithmquestion.entity.TreeNode;
 import java.util.Deque;
 import java.util.LinkedList;
 import lombok.AllArgsConstructor;
@@ -244,16 +245,6 @@ public class BinaryTreeNode {
       deque.offerLast(rightNode.getLeft());
     }
     return true;
-  }
-
-  @Getter
-  @Setter
-  @NoArgsConstructor
-  @AllArgsConstructor
-  private static class RecordPair {
-
-    private TreeNode curr;
-    private Integer roadValue;
   }
 
 }

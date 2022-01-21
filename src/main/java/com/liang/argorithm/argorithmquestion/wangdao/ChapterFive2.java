@@ -1,6 +1,6 @@
 package com.liang.argorithm.argorithmquestion.wangdao;
 
-import com.liang.argorithm.argorithmquestion.aboutbinarytree.BinaryTreeTraversal.TreeNode;
+import com.liang.argorithm.argorithmquestion.entity.TreeNode;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Deque;
