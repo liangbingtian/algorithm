@@ -6,6 +6,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.ClosedSelectorException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
@@ -101,6 +102,8 @@ public class NioChatClient {
 
     } catch (IOException e) {
       e.printStackTrace();
+    }catch (ClosedSelectorException e) {
+
     }finally {
       close(selector);
     }
