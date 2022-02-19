@@ -12,7 +12,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ThreadSafe
 public class SingletonExample2 {
-  private static SingletonExample2 instance = new SingletonExample2();
+  //静态域
+//  private static SingletonExample2 instance = new SingletonExample2();
+
+  //或者使用静态块
+  private static SingletonExample2 instance = null;
+
+  static {
+    instance = new SingletonExample2();
+  }
 
   private SingletonExample2(){
 
