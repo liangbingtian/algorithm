@@ -1,0 +1,37 @@
+package com.liang.argorithm.aboutproject.transform;
+
+import com.liang.argorithm.aboutproject.transform.consumer.check.MyCheckConsumer;
+import com.liang.argorithm.aboutproject.transform.json.Sax2JSONWithoutAttrHandler;
+import com.liang.argorithm.aboutproject.transform.producer.AccountXmlProducer;
+import com.liang.argorithm.aboutproject.transform.producer.SaxAccountXmlProducer;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import org.springframework.stereotype.Component;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+/**
+ * @author liangbingtian
+ * @date 2022/02/25 下午9:28
+ */
+@Component
+public class TransformMethod {
+
+  public void parseXmlBySAX(InputStream inputStream)
+      throws ParserConfigurationException, SAXException, IOException {
+    SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+    parserFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+    parserFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+    parserFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+    SAXParser saxParser = parserFactory.newSAXParser();
+    InputSource inputSource = new InputSource(inputStream);
+    inputSource.setEncoding("GB18030");
+    AccountXmlProducer producer = new AccountXmlProducer();
+    producer.addConsumer(new MyCheckConsumer());
+    saxParser.parse(inputSource, producer);
+  }
+}

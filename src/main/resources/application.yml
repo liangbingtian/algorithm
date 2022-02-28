@@ -5,5 +5,8 @@ spring:
       username: root
       password: liangbing39024&
       driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    mongodb:
+      uri: mongodb://${mongo.username}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.database}
 server:
   port: 8080
