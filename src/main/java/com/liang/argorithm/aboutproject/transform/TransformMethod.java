@@ -1,12 +1,10 @@
 package com.liang.argorithm.aboutproject.transform;
 
-import com.liang.argorithm.aboutproject.transform.consumer.check.MyCheckConsumer;
-import com.liang.argorithm.aboutproject.transform.json.Sax2JSONWithoutAttrHandler;
-import com.liang.argorithm.aboutproject.transform.producer.AccountXmlProducer;
-import com.liang.argorithm.aboutproject.transform.producer.SaxAccountXmlProducer;
+import com.liang.argorithm.aboutproject.consumer.check.MyCheckConsumer;
+import com.liang.argorithm.aboutproject.consumer.check.MyCheckConsumer2;
+import com.liang.argorithm.aboutproject.producer.AccountXmlProducer;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -32,6 +30,7 @@ public class TransformMethod {
     inputSource.setEncoding("GB18030");
     AccountXmlProducer producer = new AccountXmlProducer();
     producer.addConsumer(new MyCheckConsumer());
+    producer.addConsumer(new MyCheckConsumer2());
     saxParser.parse(inputSource, producer);
   }
 }

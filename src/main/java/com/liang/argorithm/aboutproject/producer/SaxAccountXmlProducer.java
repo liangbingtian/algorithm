@@ -1,7 +1,7 @@
-package com.liang.argorithm.aboutproject.transform.producer;
+package com.liang.argorithm.aboutproject.producer;
 
 import com.alibaba.fastjson.JSONObject;
-import com.liang.argorithm.aboutproject.transform.consumer.IAccountXmlConsumer;
+import com.liang.argorithm.aboutproject.consumer.IAccountXmlConsumer;
 import com.liang.argorithm.aboutproject.transform.json.Sax2JSONWithoutAttrHandler;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -68,9 +68,8 @@ public class SaxAccountXmlProducer extends DefaultHandler {
       if (!xmlConsumerFirstIteratorSet.contains(pathStr)) {
         xmlConsumerMap.get(pathStr).start();
         xmlConsumerFirstIteratorSet.add(pathStr);
+        flag = true;
       }
-      flag = true;
-      xmlConsumerMap.get(pathStr).start();
       if (lastConsumer == null) {
         lastConsumer = pathStr;
       } else if (!lastConsumer.equals(pathStr)) {

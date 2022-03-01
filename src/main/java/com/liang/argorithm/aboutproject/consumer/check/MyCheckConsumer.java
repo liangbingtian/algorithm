@@ -1,7 +1,7 @@
-package com.liang.argorithm.aboutproject.transform.consumer.check;
+package com.liang.argorithm.aboutproject.consumer.check;
 
 import com.alibaba.fastjson.JSONObject;
-import com.liang.argorithm.aboutproject.transform.consumer.IAccountXmlConsumer;
+import com.liang.argorithm.aboutproject.consumer.IAccountXmlConsumer;
 
 /**
  * 测试用的

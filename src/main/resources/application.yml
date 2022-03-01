@@ -7,6 +7,8 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     mongodb:
-      uri: mongodb://${mongo.username}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.database}
+      host: localhost
+      port: 27017
+      database: local
 server:
   port: 8080

@@ -1,4 +1,4 @@
-package com.liang.argorithm.aboutproject.transform.consumer;
+package com.liang.argorithm.aboutproject.consumer;
 
 import com.alibaba.fastjson.JSONObject;
 
