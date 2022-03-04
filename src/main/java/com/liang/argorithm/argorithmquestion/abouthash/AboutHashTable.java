@@ -142,7 +142,7 @@ public class AboutHashTable {
         } else if (sum < 0) {
           while(left<right&&nums[left]==nums[++left]);
         } else {
-          result.add(new ArrayList<>(Arrays.asList(nums[i], nums[left], nums[right])));
+          result.add(Arrays.asList(nums[i], nums[left], nums[right]));
           while (left < right && nums[right] == nums[--right])
           while (left < right && nums[left] == nums[++left]);
         }

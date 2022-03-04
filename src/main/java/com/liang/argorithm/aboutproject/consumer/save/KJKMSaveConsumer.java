@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.liang.argorithm.aboutproject.dto.AccountingItemDTO;
 import com.liang.argorithm.aboutproject.entity.AccountingItem;
 import com.liang.argorithm.aboutproject.entity.AccountingStandardItem;
-import com.liang.argorithm.aboutproject.mapper.AccountingItemRepository;
+import com.liang.argorithm.aboutproject.repository.AccountingRepository;
 import com.liang.argorithm.aboutproject.consumer.AccountXmlConsumer;
 import com.liang.argorithm.aboutproject.consumer.IAccountXmlConsumer;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ import org.springframework.beans.BeanUtils;
 public class KJKMSaveConsumer extends AccountXmlConsumer<AccountingItem> implements
     IAccountXmlConsumer {
 
-  private AccountingItemRepository repository;
+  private AccountingRepository repository;
 
   private Map<String, AccountingStandardItem> accountingStandardItemMap = null;
 

@@ -1,13 +1,14 @@
 package com.liang.argorithm.aboutproject.transform;
 
-import com.liang.argorithm.aboutproject.consumer.check.MyCheckConsumer;
-import com.liang.argorithm.aboutproject.consumer.check.MyCheckConsumer2;
+import com.liang.argorithm.aboutproject.consumer.save.KJKMSaveConsumer;
+import com.liang.argorithm.aboutproject.repository.AccountingRepository;
 import com.liang.argorithm.aboutproject.producer.AccountXmlProducer;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -19,6 +20,9 @@ import org.xml.sax.SAXException;
 @Component
 public class TransformMethod {
 
+  @Autowired
+  private AccountingRepository repository;
+
   public void parseXmlBySAX(InputStream inputStream)
       throws ParserConfigurationException, SAXException, IOException {
     SAXParserFactory parserFactory = SAXParserFactory.newInstance();
@@ -29,8 +33,9 @@ public class TransformMethod {
     InputSource inputSource = new InputSource(inputStream);
     inputSource.setEncoding("GB18030");
     AccountXmlProducer producer = new AccountXmlProducer();
-    producer.addConsumer(new MyCheckConsumer());
-    producer.addConsumer(new MyCheckConsumer2());
+    KJKMSaveConsumer kjkmSaveConsumer = new KJKMSaveConsumer();
+    kjkmSaveConsumer.setRepository(repository);
+    producer.addConsumer(kjkmSaveConsumer);
     saxParser.parse(inputSource, producer);
   }
 }

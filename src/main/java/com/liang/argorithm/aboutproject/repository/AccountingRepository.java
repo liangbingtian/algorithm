@@ -1,4 +1,4 @@
-package com.liang.argorithm.aboutproject.mapper;
+package com.liang.argorithm.aboutproject.repository;
 
 import com.liang.argorithm.aboutproject.entity.AccountingItem;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -9,6 +9,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @author liangbingtian
  * @date 2022/03/01 上午10:05
  */
-public interface AccountingItemRepository extends MongoRepository<AccountingItem, String> {
+public interface AccountingRepository extends MongoRepository<AccountingItem, String> {
 
 }
