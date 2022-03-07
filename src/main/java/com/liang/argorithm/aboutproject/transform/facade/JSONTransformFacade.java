@@ -1,7 +1,14 @@
 package com.liang.argorithm.aboutproject.transform.facade;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
+import com.liang.argorithm.aboutproject.transform.iterator.JSONIterator;
+import com.liang.argorithm.aboutproject.transform.node.CompressedNode;
+import com.liang.argorithm.aboutproject.transform.node.PatternNode;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +35,7 @@ public class JSONTransformFacade {
 
   /**
    * 将jsonArray添加索引，修改为jsonObject
+   *
    * @param jsonArray
    * @return
    */
@@ -52,7 +60,7 @@ public class JSONTransformFacade {
    */
   public static void revisePatternJSONObject(JSONObject patternJSONObject, String parentSourcePath,
       String parentTargetPath, JSONObject revisedJSONObject) {
-    if (patternJSONObject==null) {
+    if (patternJSONObject == null) {
       return;
     }
     for (Map.Entry<String, Object> entry : patternJSONObject.entrySet()) {
@@ -62,41 +70,69 @@ public class JSONTransformFacade {
       int index = key.indexOf("->");
       String sourcePath = parentSourcePath;
       String targetPath = parentTargetPath;
-      if (index==-1) {
+      if (index == -1) {
         //目标节点直接映射
         if (key.startsWith("./")) {
           //如果以./开头，证明要把上面的替换掉
-          targetPath = targetPath+key.substring(2);
-        }else {
+          targetPath = targetPath + key.substring(2);
+        } else {
           targetPath = key;
         }
         revisedKey = targetPath;
-      }else {
+      } else {
         //源节点映射到目标节点
         String key1 = key.substring(0, index);
-        String key2 = key.substring(index+2);
+        String key2 = key.substring(index + 2);
         //分别处理k1和k2
         if (key1.startsWith("./")) {
-          sourcePath = sourcePath+key1.substring(2);
-        }else {
+          sourcePath = sourcePath + key1.substring(2);
+        } else {
           sourcePath = key1;
         }
         if (key2.startsWith("./")) {
-          targetPath = targetPath+key2.substring(2);
-        }else {
+          targetPath = targetPath + key2.substring(2);
+        } else {
           targetPath = key2;
         }
-        revisedKey = sourcePath+"->"+targetPath;
+        revisedKey = sourcePath + "->" + targetPath;
       }
       //如果value是jsonObject那么进行重构
       if (entry.getValue() instanceof JSONObject) {
         JSONObject subJSONObject = new JSONObject(true);
         revisedJSONObject.put(revisedKey, subJSONObject);
         revisePatternJSONObject((JSONObject) value, sourcePath, targetPath, subJSONObject);
-      }else {
+      } else {
         revisedJSONObject.put(revisedKey, value);
       }
     }
+  }
+
+
+  public static JSONObject getJSONObjectFromSourceAndPattern(InputStream sourceInputStream,
+      InputStream patternInputStream) {
+    try {
+      return getJSONObjectFromSourceAndPattern(JSONObject.parseObject(sourceInputStream,
+          JSONObject.class, Feature.OrderedField),
+          (JSONObject) JSONObject.parseObject(patternInputStream, JSONObject.class, Feature.OrderedField));
+    } catch (IOException e) {
+      throw new RuntimeException();
+    }
+  }
+
+  public static JSONObject getJSONObjectFromSourceAndPattern(JSONObject sourceJSONObject,
+      JSONObject patternJSONObject) {
+    JSONObject result = null;
+    JSONObject revisedJSONObject = new JSONObject(true);
+    revisePatternJSONObject(patternJSONObject, "", "", revisedJSONObject);
+    PatternNode patternNode = PatternNode.getPatternNodeFromJSONObject(revisedJSONObject);
+    JSONIterator jsonIterator = new JSONIterator();
+    jsonIterator.setPatternNode(patternNode);
+    jsonIterator.iterator(sourceJSONObject, "r");
+    CompressedNode compressedNode = jsonIterator.getCompressedNode();
+    Object object = compressedNode.getTargetJSONObject();
+    String str = JSON.toJSONString(object);
+    result = JSON.parseObject(str, Feature.OrderedField);
+    return null;
   }
 
 }
