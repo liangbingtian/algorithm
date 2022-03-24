@@ -64,7 +64,14 @@ public class JSONIterator {
     }
     CompressedNode preParentCompressedNode = parentCompressedNode;
     if (isPatternSourcePathEmpty(preCurrPatternNode)) {
-      log.info("出现了这种情况1");
+      CompressedNode cNode = new CompressedNode();
+      cNode.setTargetPath(currPatternNode.getTargetPath());
+      cNode.setValue(currPatternNode.getValue());
+      addCompressedNodeToTree(cNode);
+      for (PatternNode node : currPatternNode.getPatternNodeList()) {
+        currPatternNode = node;
+        this.iterator(object, parentPath);
+      }
     } else if (currPatternNode.getSourcePath().equals(parentPath)) {
       //声明压缩节点
       CompressedNode node = new CompressedNode();
@@ -84,7 +91,9 @@ public class JSONIterator {
             this.iterator(subSourcePair.getValue(), subSourcePair.getKey());
             noMatchPatternNodeSet.remove(subPatternNode);
           } else if (isPatternSourcePathEmpty(subPatternNode)){
-            log.info("出现情况1.1");
+            currPatternNode = subPatternNode;
+            this.iterator(subSourcePair.getValue(), subSourcePair.getKey());
+            noMatchPatternNodeSet.remove(subPatternNode);
             break;
           }
         }

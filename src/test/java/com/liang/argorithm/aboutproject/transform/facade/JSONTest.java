@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
 import com.liang.argorithm.aboutproject.transform.node.PatternNode;
 import java.io.InputStream;
+import jdk.internal.util.xml.impl.Input;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,17 +32,71 @@ public class JSONTest {
   }
 
   /**
-   * 测试将./恢复原样。
+   * 一对一映射
    */
   @Test
   public void getNewRevisedJsonObject() {
-    String jsonStr = "{\"r->r\":{\"./.a->./.a1\":{\"./.b->./.b1\":{},\"./.c.[->./.c1.[\":{\"./]->./]\":{}},\"./.d.[->./.d1.[\":{\"./.->./.\":{\"./e->./e1\":{\"./.f->./.f1\":{}}}}}}}";
-    JSONObject jsonObject = JSONObject.parseObject(jsonStr, Feature.OrderedField);
-    JSONObject revisedObject = new JSONObject(true);
-    JSONTransformFacade.revisePatternJSONObject(jsonObject, "", "", revisedObject);
-    String targetJSONStr = "{\"r->r\":{\"r.a->r.a1\":{\"r.a.b->r.a1.b1\":{},\"r.a.c.[->r.a1.c1.[\":{\"r.a.c.[]->r.a1.c1.[]\":{}},\"r.a.d.[->r.a1.d1.[\":{\"r.a.d.[.->r.a1.d1.[.\":{\"r.a.d.[.e->r.a1.d1.[.e1\":{\"r.a.d.[.e.f->r.a1.d1.[.e1.f1\":{}}}}}}}";
-    Assert.assertEquals(targetJSONStr, revisedObject.toString());
+    InputStream inputStream = this.getClass().getClassLoader()
+        .getResourceAsStream("pattern/source1.json");
+    InputStream ruleStream = this.getClass().getClassLoader()
+        .getResourceAsStream("pattern/source1_onebyone.json");
+    JSONObject result = JSONTransformFacade
+        .getJSONObjectFromSourceAndPattern(inputStream, ruleStream);
+    Assert.assertEquals(
+        "{\"a1\":{\"b1\":123,\"c1\":[1,2],\"d1\":[{\"e1\":{\"f1\":1}},{\"e1\":{\"f1\":2}}]}}",
+        result.toString());
   }
+
+  /**
+   * 主->主子/主子->主子孙
+   */
+  @Test
+  public void testFatherSon() {
+    InputStream inputStream = this.getClass().getClassLoader()
+        .getResourceAsStream("pattern/source2.json");
+    InputStream ruleStream = this.getClass().getClassLoader()
+        .getResourceAsStream("pattern/source2_fatherson.json");
+    JSONObject result = JSONTransformFacade
+        .getJSONObjectFromSourceAndPattern(inputStream, ruleStream);
+    System.out.println(result);
+    Assert.assertEquals("{\"a1\":{\"d1\":[{\"e1\":1,\"b1\":123},{\"e1\":2,\"b1\":123}]}}",
+        result.toString());
+  }
+
+  /**
+   * 主子->主/主子孙->主子（可以映射为数组）
+   */
+  @Test
+  public void testSonFather() {
+    InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("pattern/source3.json");
+    InputStream ruleStream = this.getClass().getClassLoader().getResourceAsStream("pattern/source3_sonfatherarr.json");
+    JSONObject result = JSONTransformFacade.getJSONObjectFromSourceAndPattern(inputStream, ruleStream);
+    System.out.println(result);
+    Assert.assertEquals("{\"a1\":{\"b1\":123,\"e1\":[1,2]}}", result.toString());
+  }
+
+  /**
+   * 主子->主/主子孙->主子映射（对象数组）
+   */
+  @Test
+  public void testSonFatherObjArray() {
+    InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("pattern/source3.json");
+    InputStream ruleStream = this.getClass().getClassLoader().getResourceAsStream("pattern/source3_sonfatherobjarr.json");
+    JSONObject result = JSONTransformFacade.getJSONObjectFromSourceAndPattern(inputStream, ruleStream);
+    Assert.assertEquals("{\"a1\":{\"b1\":123,\"e1\":[{\"e2\":1},{\"e2\":2}]}}", result.toString());
+  }
+
+  /**
+   * 必填项映射
+   */
+  @Test
+  public void testEssential() {
+    InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("pattern/source3.json");
+    InputStream ruleStream = this.getClass().getClassLoader().getResourceAsStream("pattern/source3_essential.json");
+    JSONObject result = JSONTransformFacade.getJSONObjectFromSourceAndPattern(inputStream, ruleStream);
+    Assert.assertEquals("{\"a1\":{\"b1\":123,\"c1\":\"2019-06-01\"}}", result.toString());
+  }
+
 
   /**
    * 测试将Pattern的JSONObject变成的PatternNode
@@ -50,7 +105,7 @@ public class JSONTest {
   public void getPatternNode() {
     String jsonStr = "{\"r.a->r.a1\":{\"r.a.d.[->r.a1.d1.[\":{\"r.a.d.[.->r.a1.d1.[.\":{\"r.a.d.[.e->r.a1.d1.[.e1\":{},\"r.a.b->r.a1.d1.[.b1\":{}}}}}";
     JSONObject jsonObject = JSONObject.parseObject(jsonStr, Feature.OrderedField);
-    PatternNode patternNode = PatternNode.getPatternNodeFromJSONObject(jsonObject);
+//    PatternNode patternNode = PatternNode.getPatternNodeFromJSONObject(jsonObject);
     System.out.println("");
   }
 
@@ -60,9 +115,10 @@ public class JSONTest {
   @Test
   public void getCompressedNode() {
     InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(
-        "pattern/source3.json");
+        "pattern/source4.json");
     InputStream ruleStream = this.getClass().getClassLoader().getResourceAsStream(
-        "pattern/source3_layer.json");
-    JSONObject jsonObject = JSONTransformFacade.getJSONObjectFromSourceAndPattern(inputStream, ruleStream);
+        "pattern/source4_transform.json");
+    JSONObject jsonObject = JSONTransformFacade
+        .getJSONObjectFromSourceAndPattern(inputStream, ruleStream);
   }
 }

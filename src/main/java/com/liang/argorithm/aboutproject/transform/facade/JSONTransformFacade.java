@@ -124,7 +124,7 @@ public class JSONTransformFacade {
     JSONObject result = null;
     JSONObject revisedJSONObject = new JSONObject(true);
     revisePatternJSONObject(patternJSONObject, "", "", revisedJSONObject);
-    PatternNode patternNode = PatternNode.getPatternNodeFromJSONObject(revisedJSONObject);
+    PatternNode patternNode = PatternNode.getPatternNodeFromJSONObject(revisedJSONObject).get(0);
     JSONIterator jsonIterator = new JSONIterator();
     jsonIterator.setPatternNode(patternNode);
     jsonIterator.iterator(sourceJSONObject, "r");
@@ -132,7 +132,7 @@ public class JSONTransformFacade {
     Object object = compressedNode.getTargetJSONObject();
     String str = JSON.toJSONString(object);
     result = JSON.parseObject(str, Feature.OrderedField);
-    return null;
+    return (JSONObject) result.get("r");
   }
 
 }

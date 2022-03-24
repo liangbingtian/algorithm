@@ -39,7 +39,7 @@ public class CompressedNode {
       //如果是对象数组中的对象
       Map<String, Object> treeNode = new LinkedHashMap<>();
       for (CompressedNode subNode : this.getSubNodeList()) {
-        this.getTargetJSON(subNode.getTargetPath(), treeNode);
+        subNode.getTargetJSON(this.getTargetPath(), treeNode);
       }
       ((List) parentNode).add(treeNode);
     } else if ("]".equals(currPath)) {
@@ -56,6 +56,7 @@ public class CompressedNode {
           if (i != split.length - 1 && split[i + 1].equals("[")) {
             //如果是数组
             curr = new ArrayList<>();
+            ((LinkedHashMap<String, Object>) preNode).put(str, curr);
           } else if (i == split.length - 1 && this.getSubNodeList().size() == 0) {
             //是值
             ((LinkedHashMap<String, Object>) preNode).put(str, this.getValue());
