@@ -1,0 +1,85 @@
+{
+  "materialCategory" : 3,
+  "articleInfos" : [
+    {
+      "uuid" : "f0288aa441bbff0a4793b61c1ecefee3",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "81c699afac8ac9957f0ac4c8cd474672",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "d7747ac6365e5714863d676e6dba0f93",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "214e14f2037a19ab977173fdef6b4a80",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "d29cad669985871d8a883bf4d8727c16",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "70d8a5fba2d352f61dc5bda6c8ae0ccc",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "2f6824cab64d389b9453e8a57a6cd4a1",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "44a6fc0b7c16af66f4418580dc4dc7c0",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "ac28979f6a858ae1b8b39aa3e127d5d7",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "11de2c6327e2822886cae29b1c1a99ca",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "bc5c961ba7cec5021186ab9f793c5ed5",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "eab2746901a57c314f4aca1db245f26c",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "f0f852560c312791fffd5ea34ba6007e",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "03358616925d2c8a7998dd159418a924",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "5dc9f3aa6adfad475b8a89e9d4b5b116",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "095633bc9da19b037d3485f620e93218",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "898fe6a7e7c36157324ebc6e2438cc20",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "945c725b91844fa9b867308c471a550f",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "0c04a369217af8192ecf8d26d18217c6",
+      "similarArticlesNum" : 15
+    },
+    {
+      "uuid" : "6f2e17156d86ceb2acec96bffb07239a",
+      "similarArticlesNum" : 15
+    }
+  ]
+}

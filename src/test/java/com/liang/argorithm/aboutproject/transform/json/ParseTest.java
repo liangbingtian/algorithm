@@ -26,7 +26,10 @@ public class ParseTest {
 
   @Test
   public void testParseMethod() throws IOException, SAXException, ParserConfigurationException {
-    transformMethod.parseXmlBySAX(ParseTest.class.getClassLoader().getResourceAsStream(
-        "pattern/xmls/总账类2.xml"));
+//    transformMethod.parseXmlBySAX(ParseTest.class.getClassLoader().getResourceAsStream(
+//        "pattern/xmls/总账类2.xml"));
+    StringBuilder sb = new StringBuilder();
+    StringBuilder append = sb.append("a").append("|").append("b");
+    System.out.println(append);
   }
 }

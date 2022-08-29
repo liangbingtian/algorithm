@@ -23,7 +23,7 @@ public class IPersonInfoLargeTest {
 
   @Test
   public void insert() {
-    int limit = 1000000;
+    int limit = 10;
     while(limit--!=0) {
       personInfoLargeMapper.insert(randomPersonInfo());
     }
