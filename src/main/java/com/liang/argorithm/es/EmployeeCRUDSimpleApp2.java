@@ -1,6 +1,7 @@
 package com.liang.argorithm.es;
 
 import java.io.IOException;
+import org.elasticsearch.client.Request;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.GetIndexRequest;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeCRUDSimpleApp2 {
 
+  public static final String MONITOR_CREATE_INDEX = "%3Cscheme_user_{}_%7Bnow%2Fd%7ByyyyMMdd%7CUTC%2B8%7D%7D-000001%3E";
+
   @Autowired
   private RestHighLevelClient restHighLevelClient;
 
@@ -25,5 +28,10 @@ public class EmployeeCRUDSimpleApp2 {
   public boolean isExistsIndex(String indexName) throws IOException {
     GetIndexRequest request = new GetIndexRequest(indexName);
     return restHighLevelClient.indices().exists(request, RequestOptions.DEFAULT);
+  }
+
+  private static Request putIndex(String name) {
+//    Request request = new Request("PUT", "/"+StrUtil)
+    return null;
   }
 }
