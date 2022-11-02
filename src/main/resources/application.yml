@@ -49,5 +49,8 @@ server:
     threads:
       max: 300
 
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+
 
 

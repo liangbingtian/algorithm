@@ -65,8 +65,8 @@
 
 		<dependency>
 			<groupId>tk.mybatis</groupId>
-			<artifactId>mapper</artifactId>
-			<version>${tk.mybatis.version}</version>
+			<artifactId>mapper-spring-boot-starter</artifactId>
+			<version>1.2.4</version>
 		</dependency>
 
 		<dependency>
@@ -149,6 +149,26 @@
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-annotations</artifactId>
 			<version>1.6.2</version>
+		</dependency>
+
+		<!-- poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+
+		<!--jsonwebtoken-->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
 		</dependency>
 	</dependencies>
 
