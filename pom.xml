@@ -138,6 +138,18 @@
 			<artifactId>hutool-all</artifactId>
 			<version>5.4.0</version>
 		</dependency>
+
+		<!-- Swagger 依赖配置 -->
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-models</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.6.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -24,6 +24,7 @@ public class EsTest1 {
   @Test
   public void testExist() throws IOException {
     System.out.println(app2.isExistsIndex("employee"));
+    System.out.println(app2.createByJsonStr("1"));
   }
 
 }
