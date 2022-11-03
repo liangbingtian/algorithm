@@ -2,76 +2,81 @@ package com.liang.argorithm.aboutproject.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 /**
- * 
+ * 监测词库
+ *
  * monitor_word_dict
  *
- * @mbg.generated 2022-11-02 15:38:34
+ * @mbg.generated 2022-11-03 10:48:36
  */
-@Table(name = "monitor_word_dict")
+@Getter
+@Setter
+@ToString
+@Accessors(chain = true)
+@TableName("monitor_word_dict")
 public class MonitorWordDict {
     /**
+     * 自增主键
      *
      * monitor_word_dict.id
      *
      */
-    @Id
-    @JSONField(serialzeFeatures = {SerializerFeature.WriteNonStringValueAsString})
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
+     * 一级标签名称
      *
-     * monitor_word_dict.first
+     * monitor_word_dict.one_level_name
      *
      */
-    private String first;
+    private String oneLevelName;
 
     /**
+     * 二级标签名称
      *
-     * monitor_word_dict.second
+     * monitor_word_dict.second_level_name
      *
      */
-    private String second;
+    private String secondLevelName;
 
     /**
+     * 展示排序
      *
-     * monitor_word_dict.third
+     * monitor_word_dict.sort
      *
      */
-    private String third;
+    private Integer sort;
 
-    public Integer getId() {
-        return id;
-    }
+    /**
+     * 是否删除（0-未删、1-删除）
+     *
+     * monitor_word_dict.is_deleted
+     *
+     */
+    private Integer isDeleted;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    /**
+     * 备注
+     *
+     * monitor_word_dict.remark
+     *
+     */
+    private String remark;
 
-    public String getFirst() {
-        return first;
-    }
-
-    public void setFirst(String first) {
-        this.first = first;
-    }
-
-    public String getSecond() {
-        return second;
-    }
-
-    public void setSecond(String second) {
-        this.second = second;
-    }
-
-    public String getThird() {
-        return third;
-    }
-
-    public void setThird(String third) {
-        this.third = third;
-    }
+    /**
+     * 词库关键词
+     *
+     * monitor_word_dict.key_words
+     *
+     */
+    private String keyWords;
 }

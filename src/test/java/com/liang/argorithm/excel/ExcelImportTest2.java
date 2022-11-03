@@ -42,17 +42,17 @@ public class ExcelImportTest2 {
         commonFirst = first;
       }
       MonitorWordDict dict = new MonitorWordDict();
-      dict.setFirst(commonFirst);
-      dict.setSecond((String) recordMap.get("1"));
-      dict.setThird((String) recordMap.get("2"));
+      dict.setOneLevelName(commonFirst);
+      dict.setSecondLevelName((String) recordMap.get("1"));
+      dict.setKeyWords((String) recordMap.get("2"));
       monitorWordDicts.add(dict);
       System.out.println(String
           .format("sheetName: %s, sheetIndex: %s, row: %d, record: %s", sheetName, sheetIndex, rowIndex,
               JSON.toJSONString(dict)));
-      dictMapper.insert(dict);
     }));
     excelHandler.processInputStream(
         XLSXTest.class.getClassLoader().getResourceAsStream("新词库_事件词_v3.1.xlsx"));
+    dictMapper.batchInsert(monitorWordDicts);
     System.out.println("插入完成");
   }
 

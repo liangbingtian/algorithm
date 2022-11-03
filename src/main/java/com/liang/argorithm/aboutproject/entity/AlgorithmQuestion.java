@@ -1,7 +1,9 @@
 package com.liang.argorithm.aboutproject.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
-import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,25 +13,22 @@ import lombok.experimental.Accessors;
 @Setter
 @ToString
 @Accessors(chain = true)
-@Table(name = "algorithm_question")
+@TableName("algorithm_question")
 public class AlgorithmQuestion {
     /**
      * 主键
      */
-    @Id
-    @GeneratedValue(generator = "JDBC")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
      * 题目的名称
      */
-    @Column(name = "question_name")
     private String questionName;
 
     /**
      * 题目编号
      */
-    @Column(name = "question_no")
     private String questionNo;
 
     /**
