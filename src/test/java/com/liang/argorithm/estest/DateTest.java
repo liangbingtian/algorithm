@@ -83,12 +83,13 @@ public class DateTest {
 
   @Test
   public void test6() {
-    LocalDateTime localDateTime = LocalDateTime.of(2014, Month.DECEMBER, 31, 23, 59, 59);
+    LocalDateTime localDateTime = LocalDateTime.of(2022, Month.NOVEMBER, 26, 0, 0, 0);
     //可以获取好多信息
     DayOfWeek dayOfWeek = localDateTime.getDayOfWeek();
     Month month = localDateTime.getMonth();
     //chronic_field https://blog.csdn.net/weixin_49114503/article/details/121658418
-    Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
+    LocalDateTime plus = localDateTime.plus(100, ChronoUnit.DAYS);
+    Instant instant = plus.atZone(ZoneId.systemDefault()).toInstant();
     System.out.println(Date.from(instant));
   }
 

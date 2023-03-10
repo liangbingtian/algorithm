@@ -1,7 +1,6 @@
 package com.liang.argorithm.excel;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.liang.argorithm.aboutproject.entity.MonitorWordDict;
 import com.liang.argorithm.aboutproject.mapper.MonitorWordDictMapper;
 import com.liang.argorithm.excel.handler.ExcelHandlerFacade;
@@ -42,16 +41,17 @@ public class ExcelImportTest2 {
         commonFirst = first;
       }
       MonitorWordDict dict = new MonitorWordDict();
-      dict.setOneLevelName(commonFirst);
+      dict.setOneLevelName(first);
       dict.setSecondLevelName((String) recordMap.get("1"));
       dict.setKeyWords((String) recordMap.get("2"));
+      dict.setType("1");
       monitorWordDicts.add(dict);
       System.out.println(String
           .format("sheetName: %s, sheetIndex: %s, row: %d, record: %s", sheetName, sheetIndex, rowIndex,
               JSON.toJSONString(dict)));
     }));
     excelHandler.processInputStream(
-        XLSXTest.class.getClassLoader().getResourceAsStream("新词库_事件词_v3.1.xlsx"));
+        XLSXTest.class.getClassLoader().getResourceAsStream("地域词.xls"));
     dictMapper.batchInsert(monitorWordDicts);
     System.out.println("插入完成");
   }

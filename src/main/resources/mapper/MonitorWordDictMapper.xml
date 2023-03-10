@@ -14,13 +14,14 @@
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="type" jdbcType="CHAR" property="type"/>
   </resultMap>
 
   <!-- 批量插入系统参数-->
   <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO monitor_word_dict (
     one_level_name, second_level_name,
-    key_words,sort,is_deleted,remark
+    key_words,sort,is_deleted,remark,type
     )VALUES
     <foreach collection="list" item="item" index="index"
       separator=",">
@@ -30,7 +31,8 @@
       #{item.keyWords},
       #{item.sort},
       #{item.isDeleted},
-      #{item.remark}
+      #{item.remark},
+      #{item.type}
       )
     </foreach>
   </insert>

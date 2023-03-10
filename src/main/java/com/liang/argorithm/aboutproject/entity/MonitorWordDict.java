@@ -54,7 +54,7 @@ public class MonitorWordDict {
      * monitor_word_dict.sort
      *
      */
-    private Integer sort;
+    private Integer sort=0;
 
     /**
      * 是否删除（0-未删、1-删除）
@@ -62,7 +62,7 @@ public class MonitorWordDict {
      * monitor_word_dict.is_deleted
      *
      */
-    private Integer isDeleted;
+    private Integer isDeleted=0;
 
     /**
      * 备注
@@ -79,4 +79,10 @@ public class MonitorWordDict {
      *
      */
     private String keyWords;
+
+
+    /**
+     * 类型，'1'-地域词，'2'-主体词，'3'-事件词，'4'-排除
+     */
+    private String type;
 }
