@@ -1,6 +1,11 @@
 package com.liang.argorithm.pattern.behavioral.observer;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,5 +30,12 @@ public class ObserverTest {
     question.setUserName("炳田");
     question.setQuestionContent("如何编写");
     course.produceQuestion(course, question);
+  }
+
+  @Test
+  public void test1() {
+    List<Integer> integers = Arrays.asList(1, 2, 3);
+    Integer[] integers1 = integers.toArray(new Integer[0]);
+    System.out.println();
   }
 }

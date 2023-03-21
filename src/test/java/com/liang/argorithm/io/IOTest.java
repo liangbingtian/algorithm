@@ -8,6 +8,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -95,6 +103,24 @@ public class IOTest {
     accessFile.write(new byte[]{'U','V', 'W'});
     accessFile.seek(0);
     log.info("读取之前的偏移量为:{}, 当前读到的字符为:{}, 读取后的偏移量为:{}", accessFile.getFilePointer(), (char) accessFile.read(), accessFile.getFilePointer());
+  }
+
+  /**
+   * nio监听流
+   */
+  @Test
+  public void listenStream() throws IOException, InterruptedException {
+    WatchService watchService = FileSystems.getDefault().newWatchService();
+    Path path = Paths.get("/Users/liangbingtian/Desktop/algorithm/src/test/resources/pdftest");
+    path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
+    WatchKey key;
+    while ((key = watchService.take())!=null) {
+      for (WatchEvent<?> event : key.pollEvents()) {
+        System.out.println("被调用了");
+      }
+      key.reset();
+    }
+
   }
 
 

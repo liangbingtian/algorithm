@@ -15,13 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 public class FutureTaskExample {
 
   public static void main(String[] args) throws InterruptedException, ExecutionException {
-    FutureTask<String> futureTask = new FutureTask<>(new Callable<String>() {
-      @Override
-      public String call() throws Exception {
-        log.info("do something in callable");
-        Thread.sleep(5000);
-        return "OK";
-      }
+    FutureTask<String> futureTask = new FutureTask<>(() -> {
+      log.info("do something in callable");
+      Thread.sleep(5000);
+      return "OK";
     });
 
     new Thread(futureTask).start();
