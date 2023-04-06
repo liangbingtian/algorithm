@@ -118,4 +118,6 @@ public class Constants {
    * pdf发票上传单个文件大小限制
    */
   public static final int PDF_FILE_SIZE = 1 * 1024 * 1024;
+
+  public static final String TRACE_ID = "traceId";
 }
