@@ -17,6 +17,7 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 /**
@@ -121,6 +122,13 @@ public class IOTest {
       key.reset();
     }
 
+  }
+
+  @Test
+  public void test1() {
+    String str1 = "abc";
+    String str2 = new String("abc");
+    System.out.println(str1==str2);
   }
 
 
