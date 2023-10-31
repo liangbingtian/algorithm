@@ -17,7 +17,7 @@ public class ComplexApple extends Apple{
   private String name;
 
   public ComplexApple(String color, Long weight, String name) {
-    super(color, weight);
+    super(color, weight, 0d);
     this.name = name;
   }
 }

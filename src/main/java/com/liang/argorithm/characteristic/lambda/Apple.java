@@ -27,6 +27,8 @@ public class Apple {
 
   private Long weight;
 
+  private Double weightDouble;
+
   @FunctionalInterface
   public interface AppleFilter{
     boolean filter(Apple apple);

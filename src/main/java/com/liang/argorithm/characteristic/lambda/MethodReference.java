@@ -39,7 +39,7 @@ public class MethodReference {
     Function<String, String> function3 = String::new;
 
     //多参数推导的话需要按照顺序传递
-    BiFunction<String, Long, Apple> appleCopier = Apple::new;
+//    BiFunction<String, Long, Apple> appleCopier = Apple::new;
     ThreeFunction<String, Long, String, Apple> threeFunction = ComplexApple::new;
     Comparator<Apple> comparing = Comparator.comparing(Apple::getColor);
     Function<Apple, String> getColor = Apple::getColor;

@@ -25,6 +25,10 @@ public class TraderPractice {
     //返回一个字符串，多个字符串合并成一个
     final String reduce = transactions.stream().map(a -> a.getTrader().getName()).sorted()
         .reduce("", (name1, name2) -> name1 + name2);
+
+    //使用join操作代替reduce进行字符串连接，当然其他的链接还是可以使用reduce
+    final String collect1 = transactions.stream().map(a -> a.getTrader().getName()).sorted()
+        .collect(Collectors.joining());
     final boolean milan = transactions.stream()
         .allMatch(a -> a.getTrader().getCity().equals("milan"));
     final boolean milan1 = transactions.stream().map(Transaction::getTrader)
