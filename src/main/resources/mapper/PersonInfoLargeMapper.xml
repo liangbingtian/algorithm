@@ -12,4 +12,24 @@
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="motto" jdbcType="VARCHAR" property="motto" />
   </resultMap>
+
+<!--  <insert id="createStudentAutoKey" parameterType="liming.student.manager.data.model.StudentEntity" keyProperty="studentId">-->
+<!--    <selectKey keyProperty="studentId" resultType="String" order="BEFORE">-->
+<!--      select nextval('student')-->
+<!--    </selectKey>-->
+<!--    INSERT INTO STUDENT_TBL(STUDENT_ID,-->
+<!--    STUDENT_NAME,-->
+<!--    STUDENT_SEX,-->
+<!--    STUDENT_BIRTHDAY,-->
+<!--    STUDENT_PHOTO,-->
+<!--    CLASS_ID,-->
+<!--    PLACE_ID)-->
+<!--    VALUES (#{studentId},-->
+<!--    #{studentName},-->
+<!--    #{studentSex},-->
+<!--    #{studentBirthday},-->
+<!--    #{studentPhoto, javaType=byte[], jdbcType=BLOB, typeHandler=org.apache.ibatis.type.BlobTypeHandler},-->
+<!--    #{classId},-->
+<!--    #{placeId})-->
+<!--  </insert>-->
 </mapper>

@@ -1,0 +1,1 @@
+select weekofmonth from basic_date where dateid=current_date

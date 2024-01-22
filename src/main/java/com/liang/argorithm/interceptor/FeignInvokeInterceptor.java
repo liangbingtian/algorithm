@@ -1,4 +1,4 @@
-package com.liang.argorithm.concurrency.threadLocal.mdcuse.feign;
+package com.liang.argorithm.interceptor;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

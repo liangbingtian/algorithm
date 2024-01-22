@@ -1,5 +1,6 @@
-package com.liang.argorithm.concurrency.threadLocal;
+package com.liang.argorithm.filter;
 
+import com.liang.argorithm.concurrency.threadLocal.RequestHolder;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -15,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2022/02/20 下午12:06
  */
 @Slf4j
-public class HttpFilter implements Filter {
+public class MyHttpFilter implements Filter {
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {

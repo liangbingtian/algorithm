@@ -1,6 +1,5 @@
-package com.liang.argorithm.concurrency.threadLocal.mdcuse.feign;
+package com.liang.argorithm.interceptor;
 
-import com.liang.argorithm.config.BaseConstant;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

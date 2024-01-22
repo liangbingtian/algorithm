@@ -1,7 +1,7 @@
 package com.liang.argorithm;
 
-import com.liang.argorithm.concurrency.threadLocal.HttpFilter;
-import com.liang.argorithm.concurrency.threadLocal.HttpInterceptor;
+import com.liang.argorithm.filter.HttpFilter;
+import com.liang.argorithm.interceptor.HttpInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,5 +1,6 @@
 package com.liang.argorithm.estest;
 
+import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -11,7 +12,9 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -83,14 +86,23 @@ public class DateTest {
 
   @Test
   public void test6() {
-    LocalDateTime localDateTime = LocalDateTime.of(2022, Month.NOVEMBER, 26, 0, 0, 0);
+    LocalDateTime localDateTime = LocalDateTime.of(2023, Month.NOVEMBER, 7, 0, 0, 0);
     //可以获取好多信息
     DayOfWeek dayOfWeek = localDateTime.getDayOfWeek();
     Month month = localDateTime.getMonth();
     //chronic_field https://blog.csdn.net/weixin_49114503/article/details/121658418
-    LocalDateTime plus = localDateTime.plus(100, ChronoUnit.DAYS);
+    LocalDateTime plus = localDateTime.minus(15, ChronoUnit.DAYS);
     Instant instant = plus.atZone(ZoneId.systemDefault()).toInstant();
     System.out.println(Date.from(instant));
+  }
+
+  @Test
+  public void test7() {
+    List<BigDecimal> numList = Arrays.asList( new BigDecimal("2.347"));
+    final BigDecimal totalCost = numList.stream()
+            .reduce(BigDecimal::add).orElse(BigDecimal.ZERO)
+            .setScale(2, BigDecimal.ROUND_HALF_UP);
+    System.out.println(totalCost);
   }
 
 
