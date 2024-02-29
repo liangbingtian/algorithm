@@ -1,6 +1,6 @@
 package com.liang.argorithm;
 
-import com.liang.argorithm.filter.HttpFilter;
+import com.liang.argorithm.filter.MyHttpFilter;
 import com.liang.argorithm.interceptor.HttpInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -21,9 +21,9 @@ public class ArgorithmApplication implements WebMvcConfigurer {
 	}
 
 	@Bean
-	public FilterRegistrationBean<HttpFilter> httpFilter() {
-		FilterRegistrationBean<HttpFilter> registrationBean = new FilterRegistrationBean<>();
-		registrationBean.setFilter(new HttpFilter());
+	public FilterRegistrationBean<MyHttpFilter> httpFilter() {
+		FilterRegistrationBean<MyHttpFilter> registrationBean = new FilterRegistrationBean<>();
+		registrationBean.setFilter(new MyHttpFilter());
 		registrationBean.addUrlPatterns("/threadLocal/*");
 		return registrationBean;
 	}

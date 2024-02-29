@@ -128,6 +128,24 @@ public class CollectionTest {
         System.out.println(DigestUtils.sha256Hex("苏三说技术"));
     }
 
+    @Test
+    public void changeCode() {
+            // 十进制数字
+            int decimalNumber = 26045;
+
+            // 步骤1：将十进制数转换为 Unicode 字符
+            char unicodeChar = (char) decimalNumber;
+
+            // 步骤2：将 Unicode 字符编码为 UTF-8 字节序列
+            byte[] utf8Bytes = String.valueOf(unicodeChar).getBytes(StandardCharsets.UTF_8);
+
+            // 步骤3：将字节序列转换回字符串
+            String utf8String = new String(utf8Bytes, StandardCharsets.UTF_8);
+
+            // 输出 UTF-8 编码的字符串
+            System.out.println("UTF-8 编码的字符串: " + utf8String);
+    }
+
 
 
 }
