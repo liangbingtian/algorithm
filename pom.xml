@@ -195,6 +195,18 @@
 			<artifactId>jedis</artifactId>
 		</dependency>
 
+		<!-- redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
+		<!--aop-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
@@ -218,6 +230,40 @@
 			<artifactId>jmh-generator-annprocess</artifactId>
 			<version>1.35</version>
 		</dependency>
+
+		<!--状态机-->
+		<!-- redis持久化状态机 -->
+		<dependency>
+			<groupId>org.springframework.statemachine</groupId>
+			<artifactId>spring-statemachine-redis</artifactId>
+			<version>1.2.9.RELEASE</version>
+		</dependency>
+		<!--状态机-->
+		<dependency>
+			<groupId>org.springframework.statemachine</groupId>
+			<artifactId>spring-statemachine-starter</artifactId>
+			<version>2.0.1.RELEASE</version>
+		</dependency>
+
+		<!--云图-->
+		<dependency>
+			<groupId>com.kennycason</groupId>
+			<artifactId>kumo-core</artifactId>
+			<version>1.28</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kennycason</groupId>
+			<artifactId>kumo-tokenizers</artifactId>
+			<version>1.28</version>
+		</dependency>
+
+		<!--基于结巴的分词-->
+		<dependency>
+			<groupId>com.github.houbb</groupId>
+			<artifactId>segment</artifactId>
+			<version>0.3.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

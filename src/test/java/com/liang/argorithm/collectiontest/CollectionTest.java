@@ -130,22 +130,40 @@ public class CollectionTest {
 
     @Test
     public void changeCode() {
-            // 十进制数字
-            int decimalNumber = 26045;
+        // 十进制数字
+        int decimalNumber = 26045;
 
-            // 步骤1：将十进制数转换为 Unicode 字符
-            char unicodeChar = (char) decimalNumber;
+        // 步骤1：将十进制数转换为 Unicode 字符
+        char unicodeChar = (char) decimalNumber;
 
-            // 步骤2：将 Unicode 字符编码为 UTF-8 字节序列
-            byte[] utf8Bytes = String.valueOf(unicodeChar).getBytes(StandardCharsets.UTF_8);
+        // 步骤2：将 Unicode 字符编码为 UTF-8 字节序列
+        byte[] utf8Bytes = String.valueOf(unicodeChar).getBytes(StandardCharsets.UTF_8);
 
-            // 步骤3：将字节序列转换回字符串
-            String utf8String = new String(utf8Bytes, StandardCharsets.UTF_8);
+        // 步骤3：将字节序列转换回字符串
+        String utf8String = new String(utf8Bytes, StandardCharsets.UTF_8);
 
-            // 输出 UTF-8 编码的字符串
-            System.out.println("UTF-8 编码的字符串: " + utf8String);
+        // 输出 UTF-8 编码的字符串
+        System.out.println("UTF-8 编码的字符串: " + utf8String);
     }
 
+    @Test
+    public void TwoToTeen() {
+        String binary = "1111"; // 十六进制字符串
+        int id = Integer.parseInt(binary, 2); // 将十六进制字符串转换为长整型十进制数值
+        System.out.println("二进制数 " + binary + " 转换为十进制数为: " + id);
+    }
+
+    @Test
+    public void TeenToSixteen() {
+        int decimal = 31; // 十进制数值
+        String hex = Integer.toBinaryString(decimal); // 将十进制数值转换为十六进制字符串
+        System.out.println("十进制数 " + decimal + " 转换为二进制数为: " + hex);
+    }
+
+    @Test
+    public void testDecimal() {
+        System.out.println(1 | 2 | 4);
+    }
 
 
 }

@@ -21,7 +21,7 @@ FROM dwd_jd_jzt_kc_sku_report
 WHERE
 username in ( 'jd_nvbsd','BSD彭艾云','bvp06121666','BSD-户外代理','BSD-奥莱代理','BSD-童装代理','BSD奥莱店铺推广','BSD户外店铺推广','波司登童装自营')
 AND trans_days=15
-AND caliber=1
+AND caliber=0
 and gift_flag=0
 and order_status=1
 AND (date_str between '${startDay}' and '${endDay}'
@@ -60,7 +60,7 @@ FROM dwd_jd_jzt_kc_sku_report
 WHERE
 username in ( 'jd_nvbsd','BSD彭艾云','bvp06121666','BSD-户外代理','BSD-奥莱代理','BSD-童装代理','BSD奥莱店铺推广','BSD户外店铺推广','波司登童装自营')
 AND trans_days=15
-AND caliber=1
+AND caliber=0
 and gift_flag=0
 and order_status=1
 and date_str>='${monthStartDay}' and date_str<='${endDay}'

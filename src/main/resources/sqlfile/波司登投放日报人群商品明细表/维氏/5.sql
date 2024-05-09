@@ -1,0 +1,21 @@
+CREATE TABLE `jd_alert_psn_info` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `company` varchar(100) DEFAULT NULL COMMENT '公司编码',
+  `organization_name` varchar(100)  DEFAULT NULL COMMENT '组织名称',
+  `psn_name` varchar(200) DEFAULT NULL COMMENT '人员名称',
+  `account` varchar(50)  DEFAULT NULL COMMENT '统一认证账号',
+  `post_name` varchar(200) DEFAULT NULL COMMENT '岗位名称',
+  `job_name` varchar(200) DEFAULT NULL COMMENT '职位名称',
+  `dept_code` varchar(40) DEFAULT NULL COMMENT '所属部门编码',
+  `dept_name` varchar(200) DEFAULT NULL COMMENT '部门名称',
+  `business_unit_code` varchar(50) DEFAULT NULL COMMENT '所属事业部编码',
+  `business_unit_name` varchar(100) DEFAULT NULL COMMENT '所属事业部名称',
+  `we_chart` varchar(50) DEFAULT NULL COMMENT '微信id',
+  `email` varchar(100) DEFAULT NULL COMMENT '邮箱信息',
+  `enablestate` varchar(20) DEFAULT NULL COMMENT '启用状态:1删除2启用3禁用',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by` varchar(50) DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT commit ='预警接收人信息';
