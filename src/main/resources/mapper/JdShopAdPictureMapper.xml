@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.JdShopAdPictureMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.JdShopAdPicture">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="pictureName" column="picture_name" jdbcType="VARCHAR"/>
+            <result property="adName" column="ad_name" jdbcType="VARCHAR"/>
+            <result property="imageUrl" column="image_url" jdbcType="VARCHAR"/>
+            <result property="skuId" column="sku_id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="startDate" column="start_date" jdbcType="TIMESTAMP"/>
+            <result property="endDate" column="end_date" jdbcType="TIMESTAMP"/>
+            <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="updateDate" column="update_date" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,picture_name,ad_name,
+        image_url,sku_id,title,
+        start_date,end_date,create_date,
+        create_by,update_date,update_by
+    </sql>
+</mapper>

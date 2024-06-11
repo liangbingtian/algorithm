@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.JdAlertPsnInfoMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.JdAlertPsnInfo">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="company" column="company" jdbcType="VARCHAR"/>
+            <result property="organizationName" column="organization_name" jdbcType="VARCHAR"/>
+            <result property="psnName" column="psn_name" jdbcType="VARCHAR"/>
+            <result property="account" column="account" jdbcType="VARCHAR"/>
+            <result property="postName" column="post_name" jdbcType="VARCHAR"/>
+            <result property="jobName" column="job_name" jdbcType="VARCHAR"/>
+            <result property="deptCode" column="dept_code" jdbcType="VARCHAR"/>
+            <result property="deptName" column="dept_name" jdbcType="VARCHAR"/>
+            <result property="businessUnitCode" column="business_unit_code" jdbcType="VARCHAR"/>
+            <result property="businessUnitName" column="business_unit_name" jdbcType="VARCHAR"/>
+            <result property="weChart" column="we_chart" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="enablestate" column="enablestate" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,company,organization_name,
+        psn_name,account,post_name,
+        job_name,dept_code,dept_name,
+        business_unit_code,business_unit_name,we_chart,
+        email,enablestate,create_time,
+        create_by,update_time,update_by
+    </sql>
+</mapper>

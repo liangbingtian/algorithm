@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.JdKeywordTypeMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.JdKeywordType">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="keyword" column="keyword" jdbcType="VARCHAR"/>
+            <result property="keywordType" column="keyword_type" jdbcType="INTEGER"/>
+            <result property="segmentWords" column="segment_words" jdbcType="VARCHAR"/>
+            <result property="brand" column="brand" jdbcType="VARCHAR"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="tfSelf" column="tf_self" jdbcType="TINYINT"/>
+            <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+            <result property="updateDate" column="update_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,keyword,keyword_type,
+        segment_words,brand,username,
+        tf_self,create_date,update_date
+    </sql>
+</mapper>

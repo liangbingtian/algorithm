@@ -1,7 +1,7 @@
 #所有环境公用的配置属性
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/algorithm
+    url: jdbc:mysql://localhost:3306/ruoyi_vue
     hikari:
       username: root
       password: liangbing39024&
