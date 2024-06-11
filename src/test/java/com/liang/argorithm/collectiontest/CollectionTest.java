@@ -1,11 +1,12 @@
 package com.liang.argorithm.collectiontest;
 
-import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Assert;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.google.common.collect.Lists;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import com.kennycason.kumo.nlp.filter.WordSizeFilter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -148,7 +149,7 @@ public class CollectionTest {
 
     @Test
     public void TwoToTeen() {
-        String binary = "1111"; // 十六进制字符串
+        String binary = "0011"; // 十六进制字符串
         int id = Integer.parseInt(binary, 2); // 将十六进制字符串转换为长整型十进制数值
         System.out.println("二进制数 " + binary + " 转换为十进制数为: " + id);
     }
@@ -162,7 +163,20 @@ public class CollectionTest {
 
     @Test
     public void testDecimal() {
-        System.out.println(1 | 2 | 4);
+        System.out.println(DateUtil.parse("2024-05-09 12:23:23", DatePattern.NORM_DATE_FORMAT));
+    }
+
+    @Test
+    public void testArray() {
+        final List<String> strings = JSON.parseArray("[\"切词1\", \"切词2\"]", String.class);
+        System.out.println(JSON.toJSONString(strings));
+    }
+
+    @Test
+    public void wordSize() {
+        final WordSizeFilter wordSizeFilter = new WordSizeFilter(2, 6);
+        final boolean test = wordSizeFilter.test("男");
+        System.out.println();
     }
 
 
