@@ -16,7 +16,7 @@ spring:
   profiles:
     active: dev
 server:
-  port: 800
+  port: 8080
 
 #jedis的配置
 jedis.host: 127.0.0.1

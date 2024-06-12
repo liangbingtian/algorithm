@@ -1,19 +1,21 @@
-package generator.domain;
+package com.liang.argorithm.aboutproject.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 import lombok.Data;
 
 /**
  * 
- * @TableName sys_user
+ * @TableName sys_permission
  */
-@TableName(value ="sys_user")
+@TableName(value ="sys_permission")
 @Data
-public class SysUser implements Serializable {
+public class SysPermission implements Serializable {
     /**
      * 
      */
@@ -23,12 +25,19 @@ public class SysUser implements Serializable {
     /**
      * 
      */
-    private String name;
+    private String url;
 
     /**
      * 
      */
-    private String password;
+    private Integer roleId;
+
+    /**
+     * 
+     */
+    private String permission;
+
+    private List<String> permissions;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -44,10 +53,11 @@ public class SysUser implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        SysUser other = (SysUser) that;
+        SysPermission other = (SysPermission) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()));
+            && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
+            && (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
+            && (this.getPermission() == null ? other.getPermission() == null : this.getPermission().equals(other.getPermission()));
     }
 
     @Override
@@ -55,8 +65,9 @@ public class SysUser implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
+        result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
+        result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
+        result = prime * result + ((getPermission() == null) ? 0 : getPermission().hashCode());
         return result;
     }
 
@@ -67,10 +78,19 @@ public class SysUser implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", password=").append(password);
+        sb.append(", url=").append(url);
+        sb.append(", roleId=").append(roleId);
+        sb.append(", permission=").append(permission);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public List<String> getPermissions() {
+        return Arrays.asList(this.permission.trim().split(","));
+    }
+
+    public void setPermissions(List<String> permissions) {
+        this.permissions = permissions;
     }
 }
