@@ -1,7 +1,7 @@
 #所有环境公用的配置属性
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/ruoyi_vue
+    url: jdbc:mysql://localhost:3306/jd_digital_marketing
     hikari:
       username: root
       password: liangbing39024&
@@ -15,8 +15,13 @@ spring:
     allow-bean-definition-overriding: true
   profiles:
     active: dev
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 server:
-  port: 8080
+  port: 8088
+  servlet:
+    session:
+      timeout: 60s
 
 #jedis的配置
 jedis.host: 127.0.0.1
@@ -48,6 +53,7 @@ server:
     max-connections: 1000
     threads:
       max: 300
-
-mybatis:
+mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
