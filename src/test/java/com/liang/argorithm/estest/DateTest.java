@@ -1,5 +1,7 @@
 package com.liang.argorithm.estest;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.DayOfWeek;
@@ -103,6 +105,13 @@ public class DateTest {
             .reduce(BigDecimal::add).orElse(BigDecimal.ZERO)
             .setScale(2, BigDecimal.ROUND_HALF_UP);
     System.out.println(totalCost);
+  }
+
+
+  @Test
+  public void test8() {
+    final DateTime dateTime = DateUtil.offsetMillisecond(DateUtil.date(Long.parseLong("1718259965499")), Integer.parseInt("1915360000"));
+    System.out.println(dateTime);
   }
 
 

@@ -26,9 +26,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
  * @author liangbingtian
  * @date 2024/06/11 下午2:10
  */
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

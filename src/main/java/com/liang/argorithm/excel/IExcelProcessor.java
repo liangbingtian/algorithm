@@ -1,5 +1,7 @@
 package com.liang.argorithm.excel;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -19,5 +21,5 @@ public interface IExcelProcessor {
    * @param recordMap
    */
   void processRecord(String sheetName, int sheetIndex, int rowIndex,
-      Map<String, Object> recordMap);
+      Map<String, Object> recordMap) throws IOException;
 }

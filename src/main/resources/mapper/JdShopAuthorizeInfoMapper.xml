@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="generator.mapper.JdShopAuthorizeInfoMapper">
+<mapper namespace="com.liang.argorithm.aboutproject.mapper.JdShopAuthorizeInfoMapper">
 
-    <resultMap id="BaseResultMap" type="generator.domain.JdShopAuthorizeInfo">
+    <resultMap id="BaseResultMap" type="com.liang.argorithm.aboutproject.entity.JdShopAuthorizeInfo">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="username" column="username" jdbcType="VARCHAR"/>
             <result property="accessToken" column="access_token" jdbcType="VARCHAR"/>

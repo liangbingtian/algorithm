@@ -5,6 +5,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
+import com.liang.argorithm.aboutproject.entity.JdShopAuthorizeInfo;
+import com.liang.argorithm.aboutproject.mapper.JdShopAuthorizeInfoMapper;
+import com.liang.argorithm.aboutproject.service.JdShopAuthorizeInfoService;
 import com.liang.argorithm.aboutproject.transform.node.PatternNode;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import sun.security.provider.MD5;
 
@@ -41,6 +45,9 @@ import sun.security.provider.MD5;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.liang.argorithm.ArgorithmApplication.class)
 public class JSONTest {
+
+  @Autowired
+  private JdShopAuthorizeInfoService jdShopAuthorizeInfoService;
 
   @Test
   public void getJSONObjectWithIndex() {
@@ -234,15 +241,14 @@ public class JSONTest {
   }
 
   @Test
+  @Transactional
   public void testJson2() throws IOException {
-    InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("pattern/return.json");
-    List<String> uuidList = new ArrayList<>();
-    JSONObject jsonData = JSONObject.parseObject(inputStream, JSONObject.class);
-    JSONArray thisTimeData = jsonData.getJSONObject("data").getJSONArray("list");
-    //获取uuid
-    thisTimeData.forEach(data->{
-      uuidList.add(((JSONObject)data).getString("uuid"));
-    });
-    System.out.println(JSON.toJSONString(uuidList));
+    final List<JdShopAuthorizeInfo> list = jdShopAuthorizeInfoService.list();
+//    final Set<String> collect = list.stream().map(JdShopAuthorizeInfo::getUsername).collect(Collectors.toSet());
+//    InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("pattern/source9.json");
+//    JSONArray jsonData = JSON.parseObject(inputStream, JSONArray.class);
+//    final List<JdShopAuthorizeInfo> javaList = jsonData.toJavaList(JdShopAuthorizeInfo.class);
+//    final List<JdShopAuthorizeInfo> collect1 = javaList.stream().filter(data -> !collect.contains(data.getUsername())).collect(Collectors.toList());
+    System.out.println();
   }
 }

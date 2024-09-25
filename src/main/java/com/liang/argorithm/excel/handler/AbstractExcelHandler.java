@@ -1,12 +1,14 @@
 package com.liang.argorithm.excel.handler;
 
 import com.liang.argorithm.excel.IExcelProcessor;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 
 @Setter
@@ -43,12 +45,17 @@ abstract class AbstractExcelHandler {
   /**
    * 表示excel中的一行遍历结束 当前lineRecordMap为空时，过滤。
    */
+  @SneakyThrows
   public void processRowRecord() {
     if (recordMap.size() != 0) {
       Map<String, Object> map = recordMap;
       recordMap = new LinkedHashMap<>();
       excelProcessorList.forEach(excelProcessor -> {
-        excelProcessor.processRecord(this.sheetName, this.sheetIndex, this.getCurRow(), map);
+          try {
+              excelProcessor.processRecord(this.sheetName, this.sheetIndex, this.getCurRow(), map);
+          } catch (IOException e) {
+              throw new RuntimeException(e);
+          }
       });
     }
   }

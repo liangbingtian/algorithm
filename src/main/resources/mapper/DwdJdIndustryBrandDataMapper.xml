@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liang.argorithm.aboutproject.mapper.DwdJdIndustryBrandDataMapper">
+
+    <resultMap id="BaseResultMap" type="com.liang.argorithm.aboutproject.entity.DwdJdIndustryBrandData">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="dateStr" column="date_str" jdbcType="VARCHAR"/>
+            <result property="brandType" column="brand_type" jdbcType="VARCHAR"/>
+            <result property="business" column="business" jdbcType="VARCHAR"/>
+            <result property="cid3" column="cid3" jdbcType="INTEGER"/>
+            <result property="transDays" column="trans_days" jdbcType="INTEGER"/>
+            <result property="caliber" column="caliber" jdbcType="INTEGER"/>
+            <result property="orderStatus" column="order_status" jdbcType="INTEGER"/>
+            <result property="giftflag" column="giftFlag" jdbcType="INTEGER"/>
+            <result property="brandId" column="brand_id" jdbcType="INTEGER"/>
+            <result property="cost" column="cost" jdbcType="DECIMAL"/>
+            <result property="impression" column="impression" jdbcType="INTEGER"/>
+            <result property="click" column="click" jdbcType="INTEGER"/>
+            <result property="oldCustomerCost" column="old_customer_cost" jdbcType="DECIMAL"/>
+            <result property="newCustomerCost" column="new_customer_cost" jdbcType="DECIMAL"/>
+            <result property="oldCustomerCnt" column="old_customer_cnt" jdbcType="INTEGER"/>
+            <result property="newCustomerCnt" column="new_customer_cnt" jdbcType="INTEGER"/>
+            <result property="totalCartCnt" column="total_cart_cnt" jdbcType="INTEGER"/>
+            <result property="totalOrderCnt" column="total_order_cnt" jdbcType="INTEGER"/>
+            <result property="totalDealOrderCnt" column="total_deal_order_cnt" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,date_str,brand_type,
+        business,cid3,trans_days,
+        caliber,order_status,giftFlag,
+        brand_id,cost,impression,
+        click,old_customer_cost,new_customer_cost,
+        old_customer_cnt,new_customer_cnt,total_cart_cnt,
+        total_order_cnt,total_deal_order_cnt
+    </sql>
+</mapper>

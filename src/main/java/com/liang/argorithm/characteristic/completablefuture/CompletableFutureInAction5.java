@@ -18,7 +18,6 @@ public class CompletableFutureInAction5 {
   public static void i() {
     Integer i = null;
     try {
-      log.error("值:{}为空", i);
       Preconditions.checkArgument(i != null, "值为空");
     }catch (Exception e) {
       throw new RuntimeException(e.getMessage());
@@ -30,14 +29,8 @@ public class CompletableFutureInAction5 {
     final ThreadPoolExecutor threadPoolExecutor = ThreadUtil.newExecutor(4, 4);
 
     final CompletableFuture<Void> future1 = CompletableFuture.runAsync(() -> {
-      try {
         i();
         System.out.println("future1执行到了这一步");
-        throw new Exception("abc");
-      }catch (Exception e) {
-        System.out.println(e.getMessage());
-      }
-
     });
 
     final CompletableFuture<Object> future2 = CompletableFuture.supplyAsync(() -> {
@@ -50,7 +43,7 @@ public class CompletableFutureInAction5 {
     }, threadPoolExecutor);
 
     CompletableFuture.allOf(future1, future2).join();
-    log.info("线程池任务开始执行");
+//    log.info("线程池任务开始执行");
     threadPoolExecutor.shutdown();
   }
 
