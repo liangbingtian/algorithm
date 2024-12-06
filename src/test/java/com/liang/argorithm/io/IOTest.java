@@ -1,5 +1,6 @@
 package com.liang.argorithm.io;
 
+import cn.hutool.core.date.DateUnit;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
@@ -16,8 +17,10 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.DateUtil;
 import org.junit.Test;
 
 /**
@@ -130,6 +133,33 @@ public class IOTest {
     String str2 = new String("abc");
     System.out.println(str1==str2);
   }
+
+  @Test
+  public void test2() {
+    //创意新增规则（与）,1库存大于0,2商品上架,4促销商品,8非促销商品,16有销量,32
+    String binary = "11101011"; // 示例二进制数
+    // 将二进制字符串转换为十六进制
+    int decimal = Integer.parseInt(binary, 2);
+
+    final int i = decimal & 16;
+    System.out.println("Binary: " + binary);
+    System.out.println("decimal: " + decimal); // 输出: 2DB
+  }
+
+  @Test
+  public void test3() {
+    long longDecimalNumber = 107L;
+    String longBinaryString = Long.toBinaryString(longDecimalNumber);
+    System.out.println(longBinaryString);
+  }
+
+
+  @Test
+  public void test4() {
+    final Date parse = DateUtil.parse("2022-11-16");
+    System.out.println(cn.hutool.core.date.DateUtil.between(parse, new Date(), DateUnit.DAY));
+  }
+
 
 
 }

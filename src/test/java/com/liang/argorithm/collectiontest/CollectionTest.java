@@ -156,7 +156,9 @@ public class CollectionTest {
 
     @Test
     public void TeenToSixteen() {
-        int decimal = 31; // 十进制数值
+        //219是销量 10000  11011
+        //235是库存 100000 101011
+        int decimal = 219; // 十进制数值
         String hex = Integer.toBinaryString(decimal); // 将十进制数值转换为十六进制字符串
         System.out.println("十进制数 " + decimal + " 转换为二进制数为: " + hex);
     }

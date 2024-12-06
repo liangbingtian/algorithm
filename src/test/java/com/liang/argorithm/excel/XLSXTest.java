@@ -124,7 +124,7 @@ public class XLSXTest {
 
   @Test
   public void xlsxTest3() {
-      StringBuilder str = new StringBuilder("insert into `basic_jd_udf_adserving_md_sku_set`(`sku_id`, `spu_id`, `level`, `cid2_name`, `cid3_name`, `tf_Promo`, `promo`)\n values \n");
+      StringBuilder str = new StringBuilder("insert into `basic_jd_udf_adserving_shk_sku_category_set`(`username`, `sku_id`, `cid3_name`)\n values \n");
       ExcelHandlerFacade excelHandler = new ExcelHandlerFacade();
       excelHandler.addExcelProcessor(((sheetName, sheetIndex, rowIndex, recordMap) -> {
         System.out.printf("sheetName: %s, sheetIndex: %s, row: %d, record: %s%n", sheetName, sheetIndex, rowIndex, recordMap.toString());
@@ -132,24 +132,15 @@ public class XLSXTest {
         if (rowIndex==0) {
           return;
         }
-        String str1 = "('%s', '%s', '%s', '%s', '%s', '%s', '%s'),\n";
-        String skuId = (String) recordMap.get("19");
-        String skuIdStr = new BigDecimal(skuId).toPlainString();
-        String cid1 = (String) recordMap.get("20");
-        String cid3 = (String) recordMap.get("21");
-        String spu = (String) recordMap.get("22");
-        String spuStr = "#N/A".equals(spu)?"null":new BigDecimal(spu).toPlainString();
-        String degree = (String) recordMap.get("23");
-        String degreeStr = "#N/A".equals(degree)?"null":degree;
-        String cuxiao = (String) recordMap.get("24");
-        String cuxiaoStr = "#N/A".equals(cuxiao)? "否" : "是";
-        String promo = (String) recordMap.get("25");
-        String promoStr = "#N/A".equals(promo)?"null":promo;
-        final String format = String.format(str1, skuIdStr, spuStr, degreeStr, cid1, cid3, cuxiaoStr, promoStr);
+        String str1 = "('%s', '%s', '%s'),\n";
+        String username = "施华蔻专业投放";
+        String skuIdStr = (String) recordMap.get("0");
+        String skuName = (String) recordMap.get("1");
+        final String format = String.format(str1, username, skuIdStr, skuName);
         str.append(format);
       }));
       excelHandler.processInputStream(
-              XLSXTest.class.getClassLoader().getResourceAsStream("V表2.xlsx"));
+              XLSXTest.class.getClassLoader().getResourceAsStream("施华蔻专业-三级品类.xlsx"));
     String filePath = "output.txt";
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
       writer.write(str.toString());

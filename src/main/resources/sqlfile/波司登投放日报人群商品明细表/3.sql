@@ -1,13 +1,35 @@
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=26;
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=28;
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=29;
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=30;
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=32;
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=35;
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=34;
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=36;
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=40;
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=39;
-UPDATE jd_shop_authorize_info SET tf_open=false WHERE id=38;
-UPDATE jd_shop_authorize_info SET access_token='88f27f406ee144eb8a07a935a39ffbbdmnda', tf_open=true, authorize_expire_time='2025-08-30 17:21:50.608' WHERE id=5;
-UPDATE jd_shop_authorize_info SET access_token='355a950b18b041128cfb32abd622feeeytk1', tf_open=true, authorize_expire_time='2025-08-30 17:21:55.075' WHERE id=126;
+INSERT INTO `jd_ad_auto_config` (`brand`, `username`, `product`, `campaign_id`, `group_id`, `operate_time`, `dimension_type`, `delete_rule`, `create_rule`, `ad_operate`, `enable_state`)
+VALUES
+    ('JD_MD', 'MD2024-投放', '推荐广告', 3318948260,	4046459095, NULL, 5, NULL, 219, NULL, 1),
+    ('JD_MD', 'MD2024-投放', '推荐广告', 3318948260,	4046465697, NULL, 5, NULL, 235, NULL, 1),
+    ('JD_MD', 'MD2024-投放', '推荐广告', 3657441373,	4046515585, NULL, 5, NULL, 219, NULL, 1),
+    ('JD_MD', 'MD2024-投放', '推荐广告', 3657441373,	4046517736, NULL, 5, NULL, 235, NULL, 1),
+    ('JD_MD', 'MD2024-投放', '推荐广告', 3318944307,	4046526847, NULL, 5, NULL, 219, NULL, 1),
+    ('JD_MD', 'MD2024-投放', '推荐广告', 3318944307,	4046529447, NULL, 5, NULL, 235, NULL, 1);
+
+
+//219是销量
+        //235是库存
+
+
+
+3318948260,	4046459095	女-牛仔裤-销量品
+3318948260,	4046465697	女-牛仔裤-库存品
+3657441373,	4046515585	女-牛仔裤-销量品
+
+3657441373,	4046517736	女-牛仔裤-库存品
+3318944307,	4046526847	女-牛仔裤-销量品
+3318944307,	4046529447	女-牛仔裤-库存品
+
+
+
+
+
+
+
+
+
+
+
+
+

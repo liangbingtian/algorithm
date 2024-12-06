@@ -51,5 +51,9 @@ public class WordCloudTest {
 //        Assert.assertEquals("[自定义一个很长的分词[0,10)/un, ，[10,11)/un, 开心[11,13)/a, ！[13,14)/un]", resultList.toString());
 //    }
 //
+    @Test
+    public void test4() {
+
+    }
 
 }
